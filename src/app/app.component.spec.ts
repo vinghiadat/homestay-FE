@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Dormitory-Frontend'`, () => {
+  it(`should have as title 'DormitoryManagement-Frontend'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Dormitory-Frontend');
+    expect(app.title).toEqual('DormitoryManagement-Frontend');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Dormitory-Frontend app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('DormitoryManagement-Frontend app is running!');
   });
 });
