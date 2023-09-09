@@ -3,11 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderStudentComponent } from './header-student/header-student.component';
-import { FooterStudentComponent } from './footer-student/footer-student.component';
-import { LoginStudentComponent } from './login-student/login-student.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './student/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HeaderStudentComponent } from './student/header-student/header-student.component';
+import { FooterStudentComponent } from './student/footer-student/footer-student.component';
+import { LoginStudentComponent } from './student/login-student/login-student.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,15 @@ import { NotFoundComponent } from './not-found/not-found.component';
     FooterStudentComponent,
     LoginStudentComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
