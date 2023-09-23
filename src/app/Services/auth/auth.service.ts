@@ -23,19 +23,19 @@ export class AuthService {
   }
 
   //set user
-  setUser(user: any): void {
-    localStorage.setItem('user', JSON.stringify(user));
+  setUsername(username: string): void {
+    localStorage.setItem('username', JSON.stringify(username));
   }
 
   //get user
-  getUser(): any {
-    const userString = localStorage.getItem('user');
+  getUsername(): string {
+    const userString = localStorage.getItem('username');
     return userString != null ? JSON.parse(userString) : null;
   }
 
   //đăng xuất
   logout(): any {
-    if (this.getUser() != null) {
+    if (this.getUsername() != null) {
       localStorage.removeItem('user');
       localStorage.removeItem('accessToken');
     }
@@ -49,9 +49,10 @@ export class AuthService {
         tap((response: any) => {
           console.log(response);
           if (response.accessToken) {
+            //Lưu trữ user nếu cần dùng
+            this.setUsername(auth.getUsername());
             // lưu trữ token
             localStorage.setItem('accessToken', response.accessToken);
-
             //Kiểm duyệt vai trò
             this.getRoles(auth.getUsername()).subscribe((roles) => {
               if (roles.includes('STUDENT')) {

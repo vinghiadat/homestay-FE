@@ -1,0 +1,48 @@
+<div
+  *ngIf="roomType"
+  class="mb-4 all"
+  [style.opacity]="roomType.enable === false ? '0.6' : '1'"
+>
+  <div class="card text-black">
+    <i class="fa fa-home fa-lg pt-3 pb-1 px-3 mb-2"></i>
+    <div class="card-img">
+      <img [src]="imageUrl" class="d-block w-100" alt="..." />
+    </div>
+
+    <div class="card-body">
+      <div class="text-center">
+        <h5 class="card-title" style="font-weight: bolder">
+          {{ roomType.name }}
+        </h5>
+      </div>
+      <div>
+        <div class="d-flex justify-content-between">
+          <span><i class="fa fa-fan"></i> Máy lạnh</span
+          ><span *ngIf="roomType.isAirConditioned; else noAir">Có</span>
+          <ng-template #noAir><span>Không</span></ng-template>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span><i class="fa fa-fish"></i> Nấu ăn</span
+          ><span *ngIf="roomType.isCooked; else noCooked">Cho phép</span>
+          <ng-template #noCooked><span>Không cho phép</span></ng-template>
+        </div>
+        <div class="d-flex justify-content-between">
+          <span><i class="fa fa-user-friends"></i> Số lượng</span
+          ><span>{{ roomType.maxQuantity }}</span>
+        </div>
+        <div class="text-center">
+          <span class="text-center text-success" style="font-weight: bold">{{
+            roomType.enable === true ? "Hoạt động tốt" : ""
+          }}</span>
+          <span class="text-center text-warning" style="font-weight: bold">{{
+            roomType.enable === false ? "Đang sửa chữa" : ""
+          }}</span>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between total font-weight-bold mt-4">
+        <span><i class="fa fa-money-check-alt"> </i> Giá</span
+        ><span>{{ roomType.price | number }}đ/tháng</span>
+      </div>
+    </div>
+  </div>
+</div>

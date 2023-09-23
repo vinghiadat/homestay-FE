@@ -20,7 +20,11 @@
     "@angular/router": "^16.1.0",
     "bootstrap": "^4.6.2",
     "bootstrap4": "^0.0.1-security",
+    "ngx-owl-carousel": "^2.0.7",
+    "ngx-owl-carousel-o": "^16.0.0",
+    "owl.carousel": "^2.3.4",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.7.28",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
   },
