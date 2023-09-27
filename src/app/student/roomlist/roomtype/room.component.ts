@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { RoomType } from 'src/app/Models/roomtype/room-type';
-import { Sesmester } from 'src/app/Models/sesmester/sesmester';
 import { ImageService } from 'src/app/Services/image/image.service';
 
 @Component({
@@ -32,7 +31,6 @@ export class RoomComponent implements OnInit {
         });
     }
   }
-
   displayImage(imageData: Blob) {
     this.imageUrl = URL.createObjectURL(imageData);
     // Sử dụng imageUrl để hiển thị ảnh trong template của bạn

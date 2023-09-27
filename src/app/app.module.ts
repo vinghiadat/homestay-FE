@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RoomlistComponent } from './student/roomlist/roomlist.component';
 import { RoomComponent } from './student/roomlist/roomtype/room.component';
 import { RoomTypeDetailComponent } from './student/roomlist/roomtype/room-type-detail/room-type-detail.component';
+import { ReservationHistoryComponent } from './student/reservation-history/reservation-history.component';
+import { InfoComponent } from './student/info/info.component';
+import { ServiceComponent } from './student/service/service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +27,9 @@ import { RoomTypeDetailComponent } from './student/roomlist/roomtype/room-type-d
     RoomlistComponent,
     RoomComponent,
     RoomTypeDetailComponent,
+    ReservationHistoryComponent,
+    InfoComponent,
+    ServiceComponent,
   ],
   imports: [
     BrowserModule,

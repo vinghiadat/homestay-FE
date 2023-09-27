@@ -1,0 +1,49 @@
+<app-header-student></app-header-student>
+<section class="mt-5">
+  <div class="container">
+    <div class="section-title mt-5">
+      <h2>Dịch vụ</h2>
+      <p>Chúng tôi cung cấp các dịch vụ</p>
+    </div>
+  </div>
+</section>
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div
+        class="col-lg-4 col-md-6 d-flex align-items-stretch mb-3"
+        data-aos="zoom-in"
+        data-aos-delay="100"
+        *ngFor="let s of services; index as i"
+      >
+        <div class="icon-box">
+          <div class="icon">
+            <i
+              [ngClass]="
+                i === 0
+                  ? 'fa fa-bicycle'
+                  : i === 1
+                  ? 'fa fa-motorcycle'
+                  : 'fa fa-american-sign-language-interpreting'
+              "
+              style="font-size: 36px"
+            ></i>
+          </div>
+          <h4>
+            <a style="cursor: pointer">{{ s.name }}</a>
+          </h4>
+          <p style="font-size: 17px">
+            <b>Giá:</b> {{ s.price | number }}đ/tháng
+          </p>
+          <p>
+            {{ s.description }}
+          </p>
+        </div>
+        <button class="btn service_regist">Đăng ký</button>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Services Section -->
+<app-footer-student></app-footer-student>

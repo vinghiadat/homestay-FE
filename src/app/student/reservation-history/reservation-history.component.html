@@ -1,0 +1,179 @@
+<app-header-student></app-header-student>
+<section class="mt-5">
+  <div class="container">
+    <div class="section-title mt-5">
+      <h2>Lịch sử đặt phòng</h2>
+      <p>Kiểm tra phòng đã đăng ký</p>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <h4>Lịch sử đăng ký</h4>
+  <div class="text-center mt-3" *ngIf="errorMessage != ''">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="roomReservation$ | async as roomReservation">
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="row mb-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Học kỳ</div>
+          <div class="col-sm-4">{{ roomReservation.sesmester.sesmester }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Năm học</div>
+          <div class="col-sm-4">{{ roomReservation.sesmester.schoolYear }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Thời gian ở</div>
+          <div class="col-sm-4">
+            {{ roomReservation.sesmester.startDate | date : "dd/MM/yyyy" }} đến
+            {{ roomReservation.sesmester.endDate | date : "dd/MM/yyyy" }}
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Thời gian đăng ký</div>
+          <div class="col-sm-4">
+            {{
+              roomReservation.bookingDateTime | date : "HH:mm:ss  dd/MM/yyyy"
+            }}
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Trạng thái</div>
+          <div
+            class="col-sm-4 text-info"
+            style="font-weight: bold"
+            *ngIf="roomReservation.status === 0"
+          >
+            Đợi xác nhận
+          </div>
+          <div
+            class="col-sm-4 text-success"
+            style="font-weight: bold"
+            *ngIf="roomReservation.status === 1"
+          >
+            Đã xác nhận
+          </div>
+          <div
+            class="col-sm-4 text-danger"
+            style="font-weight: bold"
+            *ngIf="roomReservation.status === 2"
+          >
+            Đã bị hủy
+          </div>
+        </div>
+        <div class="row mb-3" *ngIf="roomReservation.status === 0">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-8" style="text-align: justify">
+            <hr />
+            Phản hồi chậm nhất 1 ngày kể từ ngày đăng ký<br />Nếu không nhận
+            được phản hồi sau thời gian trên. Vui lòng liên hệ
+            <b>lvut@ctu.edu.vn</b>
+            <hr />
+            <b><u>Lưu ý:</u></b> Bạn có thể chọn phòng khác để cập nhật phòng
+            muốn ở hoặc hủy bỏ đặt phòng trước khi được xác nhận
+          </div>
+        </div>
+        <div
+          class="mb-3 mt-5"
+          style="text-align: center"
+          *ngIf="roomReservation.status === 0"
+        >
+          <button
+            class="btn btn-danger"
+            (click)="handleCancelRoom(roomReservation.id)"
+          >
+            Hủy bỏ đăng ký
+          </button>
+        </div>
+        <div class="row mb-3" *ngIf="roomReservation.status === 1">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Thanh toán</div>
+          <div class="col-sm-4">Chưa</div>
+        </div>
+        <div class="row mb-3" *ngIf="roomReservation.status === 2">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-4">Ghi chú</div>
+          <div class="col-sm-4">Phòng chuẩn bị sửa</div>
+        </div>
+      </div>
+      <div class="col-sm-7">
+        <div class="row mb-3">
+          <div class="col-sm-2">Loại phòng</div>
+          <div class="col-sm-1">{{ roomReservation.roomType.name }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-sm-2">Phòng</div>
+          <div class="col-sm-1">{{ roomReservation.room.numberRoom }}</div>
+        </div>
+        <div>
+          <div style="font-style: italic; color: rgb(72, 62, 62)">
+            * Hình ảnh chỉ mang tinh chất minh họa *
+          </div>
+          <div class="carousel">
+            <input
+              type="radio"
+              name="slides"
+              *ngFor="let img of imageUrls; index as i"
+              [checked]="i + 1 === 1 ? 'checked' : null"
+              id="slide-{{ i + 1 }}"
+            />
+            <ul class="carousel__slides">
+              <li class="carousel__slide" *ngFor="let img of imageUrls">
+                <figure>
+                  <div>
+                    <img
+                      [src]="img"
+                      alt=""
+                      style="width: 100%; height: 400px"
+                    />
+                  </div>
+                  <figcaption>
+                    <div>
+                      <span style="font-weight: bold">Máy lạnh: </span
+                      >{{
+                        roomReservation.roomType.isAirConditioned == true
+                          ? "Có"
+                          : "Không"
+                      }}
+                    </div>
+                    <div>
+                      <span style="font-weight: bold">Nấu ăn: </span>
+                      {{
+                        roomReservation.roomType.isCooked == true
+                          ? "Cho phép"
+                          : "Không"
+                      }}
+                    </div>
+                    <div>
+                      <span style="font-weight: bold">Số lượng: </span>
+                      {{ roomReservation.roomType.maxQuantity }} thành viên
+                    </div>
+                    <div>
+                      <span style="font-weight: bold">Giá: </span>
+                      {{ roomReservation.roomType.price | number }}đ/tháng
+                    </div>
+                  </figcaption>
+                </figure>
+              </li>
+            </ul>
+            <ul class="carousel__thumbnails">
+              <li *ngFor="let img of imageUrls; index as i">
+                <label for="slide-{{ i + 1 }}"
+                  ><img [src]="img" alt="" style="width: 100%; height: 100px"
+                /></label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer-student></app-footer-student>

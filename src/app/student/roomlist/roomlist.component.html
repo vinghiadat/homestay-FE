@@ -80,24 +80,51 @@
         </div>
       </form>
     </div>
+    <div class="row mt-3" *ngIf="startUpdateDate && endUpdateDate">
+      <div class="col-sm-5">
+        <span style="font-weight: bold"
+          >Thời gian xin chuyển phòng (nếu cần):</span
+        >
+        <br />{{ startUpdateDate | date : "dd/MM/yyyy" }}
+        đến
+        {{ endUpdateDate | date : "dd/MM/yyyy" }}
+      </div>
+    </div>
     <div class="row mt-3">
       <div class="col-sm-5"></div>
       <div
         class="col-sm-4 text-success"
         style="font-style: italic; font-weight: bold"
-        *ngIf="isCheckedDate"
+        *ngIf="isCheckedUpdateTime; else noUpdate"
       >
-        <img src="../../../assets/img/check.png" alt="" /> Còn hạn đăng ký
+        <img src="../../../assets/img/check.png" alt="" /> Thời gian xin chuyển
+        phòng (nếu cần)
         <img src="../../../assets/img/check.png" alt="" />
       </div>
-      <div
-        class="col-sm-4 text-danger"
-        style="font-style: italic; font-weight: bold"
-        *ngIf="!isCheckedDate"
-      >
-        <img src="../../../assets/img/warning.png" alt="" /> Đã hết hạn đăng ký
-        <img src="../../../assets/img/warning.png" alt="" />
-      </div>
+      <ng-template #noUpdate>
+        <div
+          class="col-sm-4 text-success"
+          style="font-style: italic; font-weight: bold"
+          *ngIf="isCheckedDate"
+        >
+          <img src="../../../assets/img/check.png" alt="" /> Đây là thời gian
+          đăng ký ở
+          <img src="../../../assets/img/check.png" alt="" />
+        </div>
+        <div
+          class="col-sm-4 text-danger"
+          style="font-style: italic; font-weight: bold"
+          *ngIf="!isCheckedDate"
+        >
+          <img src="../../../assets/img/warning.png" alt="" /> Đã hết hạn đăng
+          ký ở
+          <img src="../../../assets/img/warning.png" alt="" />
+        </div>
+      </ng-template>
+    </div>
+    <div class="row mt-3">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-4"></div>
       <div style="font-style: italic; color: rgb(72, 62, 62)" class="col-sm-3">
         * Hình ảnh chỉ mang tinh chất minh họa *
       </div>
@@ -110,7 +137,17 @@
       <app-room
         *ngFor="let roomType of listRoomType"
         [routerLink]="
-          roomType.enable ? ['/room-type-detail', roomType.id] : null
+          !(
+            (isCheckedUpdateTime === false && isCheckedDate === true) ||
+            (isCheckedUpdateTime === true && isCheckedDate === false)
+          )
+            ? null
+            : roomType.enable
+            ? ['/room-type-detail', roomType.id]
+            : null
+        "
+        (click)="
+          handleOnClick(isCheckedDate, roomType.enable, isCheckedUpdateTime)
         "
         class="col-md-8 col-lg-6 col-xl-4"
         [roomType]="roomType"

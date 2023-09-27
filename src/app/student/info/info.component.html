@@ -1,0 +1,108 @@
+<app-header-student></app-header-student>
+<section class="mt-5">
+  <div class="container">
+    <div class="section-title mt-5">
+      <h2>Thông tin sinh viên</h2>
+      <p>Kiểm tra thông tin chính xác</p>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <h4>Thông tin sinh viên và dịch vụ đã đăng ký</h4>
+  <div class="row">
+    <div class="col-sm-8">
+      <table class="table table-striped text-center">
+        <tbody>
+          <tr *ngIf="student">
+            <td style="width: 25%; text-align: right">Mã số sinh viên</td>
+            <td style="width: 25%; text-align: left">
+              {{ student.numberStudent }}
+            </td>
+            <td style="width: 25%; text-align: right">Ngày sinh</td>
+            <td style="width: 25%; text-align: left">{{ student.birthday }}</td>
+          </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Họ tên</td>
+            <td style="width: 25%; text-align: left">{{ student.name }}</td>
+            <td style="width: 25%; text-align: right">Lớp</td>
+            <td style="width: 25%; text-align: left">
+              {{ student.classroom }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Ngành học</td>
+            <td style="width: 25%; text-align: left">{{ student.major }}</td>
+            <td style="width: 25%; text-align: right">Giới tính</td>
+            <td style="width: 25%; text-align: left">
+              {{ student.gender === 1 ? "Nam" : "Nữ" }}
+            </td>
+          </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Hộ khẩu tỉnh/TP</td>
+            <td style="width: 25%; text-align: left">{{ student.address }}</td>
+            <td style="width: 25%; text-align: right">Số điện thoại cá nhân</td>
+            <td style="width: 25%; text-align: left">{{ student.phone }}</td>
+          </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Dãy</td>
+            <td style="width: 25%; text-align: left"></td>
+            <td style="width: 25%; text-align: right">Phòng</td>
+            <td style="width: 25%; text-align: left"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <span style="font-weight: bold; font-style: italic"
+          >Chi phí phòng ở:</span
+        >
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <table class="table">
+        <thead class="table-dark">
+          <tr>
+            <th>Số thứ tự</th>
+            <th>Tên dịch vụ</th>
+            <th>Giá</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Số thứ tự</td>
+            <td>Tên dịch vụ</td>
+            <td>Giá</td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <span style="font-weight: bold; font-style: italic"
+          >Chi phí dịch vụ:</span
+        >
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-2" style="font-weight: bold; font-style: italic">
+        Tổng cộng:
+      </div>
+      <div class="col-sm-5"></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5"></div>
+      <div class="col-sm-1"></div>
+      <div
+        class="col-sm-6 text-success"
+        style="font-weight: bold; font-style: italic"
+      >
+        Đã thanh toán
+      </div>
+    </div>
+  </div>
+</section>
+<section class="container">
+  <h4>Hóa đơn điện nước</h4>
+  <table class="table table-striped text-center"></table>
+</section>
+<app-footer-student></app-footer-student>
