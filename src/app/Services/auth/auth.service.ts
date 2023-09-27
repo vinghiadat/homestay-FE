@@ -4,6 +4,7 @@ import { AppConfig } from '../../config/AppConfig';
 import { Observable, catchError, tap } from 'rxjs';
 import { Auth } from '../../Models/auth/auth';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root',
 })
@@ -64,9 +65,11 @@ export class AuthService {
           }
         }),
         catchError((error) => {
-          if (error.status === 401) {
-            console.log('Thất bại');
-          }
+          Swal.fire(
+            'Đăng nhập thất bại',
+            'Vui lòng kiểm tra lại tài khoản và mật khẩu',
+            'error'
+          );
           throw error;
         })
       )
