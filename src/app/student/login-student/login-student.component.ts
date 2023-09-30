@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
 import { AuthService } from '../../Services/auth/auth.service';
 import { Auth } from '../../Models/auth/auth';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login-student',
   templateUrl: './login-student.component.html',
@@ -17,10 +18,16 @@ export class LoginStudentComponent {
   }
 
   onSubmit() {
+    if (this.form.value.username === '' || this.form.value.password === '') {
+      Swal.fire(
+        'Đăng nhập thất bại',
+        'Vui lòng điền đầy đủ thông tin',
+        'error'
+      );
+    }
     if (this.form.invalid) {
       return;
     }
-    console.log(123);
     this.authService.login(
       new Auth(this.form.value.username, this.form.value.password)
     );
