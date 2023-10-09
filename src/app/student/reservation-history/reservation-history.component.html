@@ -13,62 +13,43 @@
     {{ errorMessage }}
   </div>
 
-  <div *ngIf="roomReservation$ | async as roomReservation">
+  <div>
     <div class="row">
       <div class="col-sm-5">
         <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Học kỳ</div>
-          <div class="col-sm-4">{{ roomReservation.sesmester.sesmester }}</div>
+          <div class="col-sm-4"></div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Năm học</div>
-          <div class="col-sm-4">{{ roomReservation.sesmester.schoolYear }}</div>
+          <div class="col-sm-4"></div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Thời gian ở</div>
-          <div class="col-sm-4">
-            {{ roomReservation.sesmester.startDate | date : "dd/MM/yyyy" }} đến
-            {{ roomReservation.sesmester.endDate | date : "dd/MM/yyyy" }}
-          </div>
+          <div class="col-sm-4"></div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Thời gian đăng ký</div>
-          <div class="col-sm-4">
-            {{
-              roomReservation.bookingDateTime | date : "HH:mm:ss  dd/MM/yyyy"
-            }}
-          </div>
+          <div class="col-sm-4"></div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Trạng thái</div>
-          <div
-            class="col-sm-4 text-info"
-            style="font-weight: bold"
-            *ngIf="roomReservation.status === 0"
-          >
+          <div class="col-sm-4 text-info" style="font-weight: bold">
             Đợi xác nhận
           </div>
-          <div
-            class="col-sm-4 text-success"
-            style="font-weight: bold"
-            *ngIf="roomReservation.status === 1"
-          >
+          <div class="col-sm-4 text-success" style="font-weight: bold">
             Đã xác nhận
           </div>
-          <div
-            class="col-sm-4 text-danger"
-            style="font-weight: bold"
-            *ngIf="roomReservation.status === 2"
-          >
+          <div class="col-sm-4 text-danger" style="font-weight: bold">
             Đã bị hủy
           </div>
         </div>
-        <div class="row mb-3" *ngIf="roomReservation.status === 0">
+        <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-8" style="text-align: justify">
             <hr />
@@ -80,24 +61,15 @@
             muốn ở hoặc hủy bỏ đặt phòng trước khi được xác nhận
           </div>
         </div>
-        <div
-          class="mb-3 mt-5"
-          style="text-align: center"
-          *ngIf="roomReservation.status === 0"
-        >
-          <button
-            class="btn btn-danger"
-            (click)="handleCancelRoom(roomReservation.id)"
-          >
-            Hủy bỏ đăng ký
-          </button>
+        <div class="mb-3 mt-5" style="text-align: center">
+          <button class="btn btn-danger">Hủy bỏ đăng ký</button>
         </div>
-        <div class="row mb-3" *ngIf="roomReservation.status === 1">
+        <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Thanh toán</div>
           <div class="col-sm-4">Chưa</div>
         </div>
-        <div class="row mb-3" *ngIf="roomReservation.status === 2">
+        <div class="row mb-3">
           <div class="col-sm-1"></div>
           <div class="col-sm-4">Ghi chú</div>
           <div class="col-sm-4">Phòng chuẩn bị sửa</div>
@@ -106,17 +78,17 @@
       <div class="col-sm-7">
         <div class="row mb-3">
           <div class="col-sm-2">Loại phòng</div>
-          <div class="col-sm-1">{{ roomReservation.roomType.name }}</div>
+          <div class="col-sm-1"></div>
         </div>
         <div class="row mb-3">
           <div class="col-sm-2">Phòng</div>
-          <div class="col-sm-1">{{ roomReservation.room.numberRoom }}</div>
+          <div class="col-sm-1"></div>
         </div>
         <div>
           <div style="font-style: italic; color: rgb(72, 62, 62)">
             * Hình ảnh chỉ mang tinh chất minh họa *
           </div>
-          <div class="carousel">
+          <!-- <div class="carousel">
             <input
               type="radio"
               name="slides"
@@ -170,7 +142,7 @@
                 /></label>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

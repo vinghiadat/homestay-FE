@@ -1338,3 +1338,23 @@ h4 {
   font-size: 20px;
   border-bottom: 3px inset #e99714;
 }
+.tacvu ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: flex-end;
+}
+.tacvu ul li {
+  margin-left: 2%;
+  border: 2px solid lightgrey;
+  background-color: lightgrey;
+}
+.tacvu ul li:hover {
+  background-color: grey;
+}
+.tacvu ul li a {
+  color: #3f0259;
+  font-weight: bold;
+}
+.tacvu ul li a:hover {
+  color: #ab05a6;
+}

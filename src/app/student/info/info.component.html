@@ -45,17 +45,16 @@
           </tr>
           <tr>
             <td style="width: 25%; text-align: right">Dãy</td>
-            <td style="width: 25%; text-align: left"></td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{ contract.roomType }}</span>
+            </td>
             <td style="width: 25%; text-align: right">Phòng</td>
-            <td style="width: 25%; text-align: left"></td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{ contract.numberRoom }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
-      <div>
-        <span style="font-weight: bold; font-style: italic"
-          >Chi phí phòng ở:</span
-        >
-      </div>
     </div>
     <div class="col-sm-4">
       <table class="table">
@@ -66,38 +65,51 @@
             <th>Giá</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>Số thứ tự</td>
-            <td>Tên dịch vụ</td>
-            <td>Giá</td>
+        <tbody *ngIf="contract">
+          <tr *ngFor="let s of contract.services; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ s.name }}</td>
+            <td>{{ s.price | number }}đ/ tháng</td>
           </tr>
         </tbody>
       </table>
-      <div>
-        <span style="font-weight: bold; font-style: italic"
-          >Chi phí dịch vụ:</span
-        >
-      </div>
     </div>
   </div>
-  <div>
+  <!-- <div class="tacvu">
+    <ul>
+      <li>
+        <a routerLink="/template">
+          <img src="../../../assets/img/printer.png" alt="" />
+          In phiếu đăng ký
+        </a>
+      </li>
+      <li *ngIf="contract">
+        <a onclick="canhbao();" style="cursor: pointer">
+          <img src="../../../assets/img/close.png" alt="" />
+          Rút đơn ở ký túc xá
+        </a>
+      </li>
+    </ul>
+  </div> -->
+  <div *ngIf="contract">
     <div class="row">
       <div class="col-sm-5"></div>
-      <div class="col-sm-2" style="font-weight: bold; font-style: italic">
+      <div class="col-sm-1" style="font-weight: bold; font-style: italic">
         Tổng cộng:
       </div>
-      <div class="col-sm-5"></div>
+      <div class="col-sm-2">{{ contract.totalPrice | number }}đ</div>
     </div>
     <div class="row">
-      <div class="col-sm-5"></div>
-      <div class="col-sm-1"></div>
+      <div class="col-sm-6"></div>
       <div
-        class="col-sm-6 text-success"
+        class="col-sm-2 text-danger"
         style="font-weight: bold; font-style: italic"
       >
-        Đã thanh toán
+        Chưa thanh toán
       </div>
+    </div>
+    <div class="text-center mt-3">
+      Thanh toán tại <span style="cursor: pointer; color: blue">đây</span>
     </div>
   </div>
 </section>

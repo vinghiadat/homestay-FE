@@ -16,6 +16,9 @@ import { RoomTypeDetailComponent } from './student/roomlist/roomtype/room-type-d
 import { ReservationHistoryComponent } from './student/reservation-history/reservation-history.component';
 import { InfoComponent } from './student/info/info.component';
 import { ServiceComponent } from './student/service/service.component';
+import { TemplateLayoutComponent } from './student/template-layout/template-layout.component';
+import { TemplateFormComponent } from './student/template-layout/template-form/template-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +33,8 @@ import { ServiceComponent } from './student/service/service.component';
     ReservationHistoryComponent,
     InfoComponent,
     ServiceComponent,
+    TemplateLayoutComponent,
+    TemplateFormComponent,
   ],
   imports: [
     BrowserModule,

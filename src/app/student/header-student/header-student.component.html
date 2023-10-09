@@ -13,7 +13,12 @@
           <a class="nav-link scrollto active" routerLink="/home">Trang chủ</a>
         </li>
         <li>
-          <a class="nav-link scrollto" href="">Sửa chữa vật chất</a>
+          <a
+            class="nav-link scrollto"
+            style="cursor: pointer"
+            (click)="handleRepair()"
+            >Sửa chữa vật chất</a
+          >
         </li>
         <li>
           <a class="nav-link scrollto" routerLink="/info-student"
@@ -21,7 +26,13 @@
           >
         </li>
         <li>
-          <a class="nav-link scrollto" routerLink="/service">Dịch vụ</a>
+          <a
+            class="nav-link scrollto"
+            style="cursor: pointer"
+            (click)="handleService()"
+            [routerLink]="contract ? '/service' : null"
+            >Dịch vụ</a
+          >
         </li>
         <li>
           <a class="nav-link scrollto" routerLink="/reservation-history"

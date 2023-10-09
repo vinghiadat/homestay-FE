@@ -1,21 +1,26 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import {
+  Component,
+  ViewEncapsulation,
+  OnInit,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Room } from 'src/app/Models/room/room';
-import { RoomReservation } from 'src/app/Models/roomreservation/room-reservation';
-import { RoomReservationRequestDTO } from 'src/app/Models/roomreservation/room-reservation-request-dto';
 import { RoomType } from 'src/app/Models/roomtype/room-type';
 import { Sesmester } from 'src/app/Models/sesmester/sesmester';
 import { Student } from 'src/app/Models/student/student';
 import { AuthService } from 'src/app/Services/auth/auth.service';
 import { ImageService } from 'src/app/Services/image/image.service';
 import { RoomService } from 'src/app/Services/room/room.service';
-import { RoomReservationService } from 'src/app/Services/roomreservation/room-reservation.service';
 import { RoomlistService } from 'src/app/Services/roomtype/roomlist.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import { StudentService } from 'src/app/Services/student/student.service';
 import Swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { ContractService } from 'src/app/Services/contract/contract.service';
+import { Contract } from 'src/app/Models/contract/contract';
+import { VNPayService } from 'src/app/Services/vnpay/vnpay.service';
 @Component({
   selector: 'app-room-type-detail',
   templateUrl: './room-type-detail.component.html',
@@ -32,7 +37,9 @@ export class RoomTypeDetailComponent implements OnInit {
     private authService: AuthService,
     private sesmesterService: SesmesterService,
     private studentService: StudentService,
-    private roomReservationService: RoomReservationService
+    private contractService: ContractService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private vnpayService: VNPayService
   ) {}
   imageUrls: string[] = [];
   errorMessage: string = '';
@@ -53,7 +60,6 @@ export class RoomTypeDetailComponent implements OnInit {
   //     });
   //   });
   // }
-  roomReservation: RoomReservation | null = null;
   roomType!: RoomType;
   room: Room[] = [];
   ngOnInit(): void {
@@ -162,24 +168,6 @@ export class RoomTypeDetailComponent implements OnInit {
         error: (error) => {},
       });
 
-      this.roomReservationService
-        .findRoomReservationsByStudentNumberAndSesmesterStatusIsTrue(
-          this.authService.getUsername()
-        )
-        .subscribe({
-          next: (response: RoomReservation) => {
-            console.log(response);
-            if (response) {
-              if (response.status === 1) {
-                this.isCheckedReservation = 1;
-              }
-            }
-          },
-          error: (error) => {
-            //Chỗ này nè ...................................... /.......
-            console.log(error.error.message);
-          },
-        });
       if (this.isCheckedReservation === 1 && this.isCheckedDate === true) {
         // Không được đăng ký nữa
       }
@@ -188,7 +176,7 @@ export class RoomTypeDetailComponent implements OnInit {
       }
     });
   }
-  onBookingRoom(roomId: number) {
+  onBookingRoom(r: Room) {
     let sesmesterId: number;
     let studentId: number;
     if (this.isCheckedReservation === 1 && this.isCheckedDate === true) {
@@ -227,36 +215,43 @@ export class RoomTypeDetailComponent implements OnInit {
 
     Swal.fire({
       title: 'Bạn có chắc chắn đăng ký phòng này ?',
+      text: 'Sau khi thanh toán bạn không thể hoàn tác.',
       showCancelButton: true,
       confirmButtonText: 'Có',
       cancelButtonText: 'Hủy bỏ',
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.addRoomReservation(sesmesterId, studentId, roomId);
+        this.vnpayService.getPayment(this.roomType.price).subscribe({
+          next: (response: string) => {
+            window.location.href = response;
+          },
+          error: (error) => {},
+        });
+        // this.addRoomReservation(this.sesmester, this.student, this.roomType, r);
       }
     });
   }
   addRoomReservation(
-    sesmester_id: number,
-    student_id: number,
-    room_id: number
+    sesmester: Sesmester,
+    student: Student,
+    roomType: RoomType,
+    r: Room
   ) {
-    const roomReservation: RoomReservationRequestDTO = {
-      sesmester_id: sesmester_id,
-      student_id: student_id,
-      room_id: room_id,
-    };
-
-    this.roomReservationService.addRoomReservation(roomReservation).subscribe({
-      next: (response: any) => {
-        if (response == null) {
-          Swal.fire('Đăng ký phòng thành công', '', 'success');
-        }
-      },
-      error: (error: any) => {
-        Swal.fire(`${error.error.message}`, '', 'error');
-      },
-    });
+    const contract = new Contract(
+      null,
+      student,
+      sesmester,
+      null,
+      roomType.name,
+      r.numberRoom,
+      new Date(),
+      null,
+      null,
+      null,
+      null
+    );
+    console.log(contract);
+    this.contractService.addContract(contract);
   }
 }
