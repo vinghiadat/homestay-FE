@@ -18,6 +18,7 @@ import { InfoComponent } from './student/info/info.component';
 import { ServiceComponent } from './student/service/service.component';
 import { TemplateLayoutComponent } from './student/template-layout/template-layout.component';
 import { TemplateFormComponent } from './student/template-layout/template-form/template-form.component';
+import { PaymentFailedComponent } from './student/payment-failed/payment-failed.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TemplateFormComponent } from './student/template-layout/template-form/t
     ServiceComponent,
     TemplateLayoutComponent,
     TemplateFormComponent,
+    PaymentFailedComponent,
   ],
   imports: [
     BrowserModule,

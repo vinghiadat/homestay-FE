@@ -53,6 +53,20 @@
               <span *ngIf="contract">{{ contract.numberRoom }}</span>
             </td>
           </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Ngày băt đầu</td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{
+                sesmester.startDate | date : "dd-MM-yyyy"
+              }}</span>
+            </td>
+            <td style="width: 25%; text-align: right">Ngày kết thúc</td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{
+                sesmester.endDate | date : "dd-MM-yyyy"
+              }}</span>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -65,11 +79,9 @@
             <th>Giá</th>
           </tr>
         </thead>
-        <tbody *ngIf="contract">
-          <tr *ngFor="let s of contract.services; index as i">
-            <td>{{ i + 1 }}</td>
-            <td>{{ s.name }}</td>
-            <td>{{ s.price | number }}đ/ tháng</td>
+        <tbody>
+          <tr>
+            <td colspan="3">Bạn chưa đăng ký dịch vụ nào hết.</td>
           </tr>
         </tbody>
       </table>
@@ -92,24 +104,47 @@
     </ul>
   </div> -->
   <div *ngIf="contract">
-    <div class="row">
-      <div class="col-sm-5"></div>
-      <div class="col-sm-1" style="font-weight: bold; font-style: italic">
-        Tổng cộng:
-      </div>
-      <div class="col-sm-2">{{ contract.totalPrice | number }}đ</div>
+    <div class="text-center">
+      <b>Tiền phòng:</b> {{ contract.totalPrice | number }}đ
     </div>
-    <div class="row">
-      <div class="col-sm-6"></div>
+    <div class="text-center">
       <div
-        class="col-sm-2 text-danger"
+        class="text-danger"
         style="font-weight: bold; font-style: italic"
+        *ngIf="contract.status == 0"
       >
         Chưa thanh toán
       </div>
+      <div
+        class="text-success"
+        style="font-weight: bold; font-style: italic"
+        *ngIf="contract.status == 1"
+      >
+        Đã thanh toán
+      </div>
+      <div
+        class="text-success"
+        style="font-weight: bold; font-style: italic"
+        *ngIf="contract.status == 2"
+      >
+        Bạn đang trong danh sách đen
+      </div>
     </div>
-    <div class="text-center mt-3">
-      Thanh toán tại <span style="cursor: pointer; color: blue">đây</span>
+    <div class="mt-2" *ngIf="contract.status == 0">
+      <i class="fa fa-warning" style="font-size: 24px; color: red"></i>
+      Hạn cuối thanh toán tiền phòng là ngày
+      <b>{{ sesmester.registrationEndDate | date : "dd-MM-yyyy" }}. </b>Nếu
+      không thanh toán đúng hạn, bạn sẽ bị thêm vào <b>DANH SÁCH ĐEN</b> và
+      không thể đăng ký ở ký túc xá về sau nữa !<br />
+      <div class="text-center">
+        Thanh toán liền tại
+        <span
+          *ngIf="contract"
+          style="cursor: pointer; color: blue; font-weight: bolder"
+          (click)="payment(contract.totalPrice, contract.id)"
+          >đây</span
+        >
+      </div>
     </div>
   </div>
 </section>

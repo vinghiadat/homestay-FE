@@ -17,17 +17,4 @@ export class ReservationHistoryComponent implements OnInit {
   imageUrls: string[] = [];
   errorMessage: string = '';
   ngOnInit(): void {}
-
-  handleCancelRoom(id: number) {
-    Swal.fire({
-      title: 'Bạn có chắc chắn muốn hủy bỏ đăng ký ?',
-      showCancelButton: true,
-      confirmButtonText: 'Có',
-      cancelButtonText: 'Không',
-    }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-      }
-    });
-  }
 }

@@ -44,6 +44,9 @@ export class ContractService {
       .subscribe({
         next: (repsonse: any) => {
           Swal.fire('Thành công', 'Đăng ký phòng thành công', 'success');
+          setTimeout(() => {
+            this.router.navigateByUrl('/info-student');
+          }, 700);
         },
         error: (error) => {
           Swal.fire('Lỗi', error.error.message, 'error');

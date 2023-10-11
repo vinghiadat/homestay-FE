@@ -18,9 +18,7 @@ export class RoomlistComponent implements OnInit {
 
   myDate: Date = new Date();
   isCheckedDate: boolean = false; // Kiểm tra khoảng thời gian nằm trong vùng đăng ký
-  isCheckedUpdateTime: boolean = false; //Kiểm tra khoảng thời gian nằm trong vùng update không
-  startUpdateDate!: Date;
-  endUpdateDate!: Date;
+
   quantity: number = 0;
   airConditioned: boolean = false;
   cooked: boolean = false;
@@ -33,10 +31,6 @@ export class RoomlistComponent implements OnInit {
     this.sesmesterService.getSesmesterByStatus().subscribe({
       next: (response: Sesmester) => {
         this.sesmester = response;
-        this.startUpdateDate = new Date(this.sesmester.startDate);
-        this.startUpdateDate.setDate(this.startUpdateDate.getDate() + 7);
-        this.endUpdateDate = new Date(this.startUpdateDate);
-        this.endUpdateDate.setDate(this.endUpdateDate.getDate() + 7);
 
         const registrationStartDate = new Date(
           this.sesmester.registrationStartDate
@@ -49,16 +43,6 @@ export class RoomlistComponent implements OnInit {
         const myDateDay = this.myDate.getDate();
         const myDateMonth = this.myDate.getMonth() + 1; // Lưu ý phải cộng thêm 1 vì tháng trong JavaScript bắt đầu từ 0
         const myDateYear = this.myDate.getFullYear();
-
-        // Lấy ngày, tháng, năm từ startUpdateDate
-        const startUpdateDay = this.startUpdateDate.getDate();
-        const startUpdateMonth = this.startUpdateDate.getMonth() + 1; // Lưu ý phải cộng thêm 1 vì tháng trong JavaScript bắt đầu từ 0
-        const startUpdateYear = this.startUpdateDate.getFullYear();
-
-        // Lấy ngày, tháng, năm từ endUpdateDate
-        const endUpdateDay = this.endUpdateDate.getDate();
-        const endUpdateMonth = this.endUpdateDate.getMonth() + 1; // Lưu ý phải cộng thêm 1 vì tháng trong JavaScript bắt đầu từ 0
-        const endUpdateYear = this.endUpdateDate.getFullYear();
 
         // Lấy ngày, tháng, năm từ registrationStartDate
         const startDateDay = registrationStartDate.getDate();
@@ -80,18 +64,6 @@ export class RoomlistComponent implements OnInit {
         ) {
           this.isCheckedDate = true;
         }
-
-        if (
-          myDateYear >= startUpdateYear &&
-          myDateYear <= endUpdateYear &&
-          myDateMonth >= startUpdateMonth &&
-          myDateMonth <= endUpdateMonth &&
-          myDateDay >= startUpdateDay &&
-          myDateDay <= endUpdateDay
-        ) {
-          this.isCheckedUpdateTime = true;
-        }
-        console.log(this.isCheckedUpdateTime);
       },
       error: (error) => {},
     });
@@ -118,17 +90,8 @@ export class RoomlistComponent implements OnInit {
       },
     });
   }
-  handleOnClick(
-    isCheckedDate: boolean,
-    enableRoomType: boolean,
-    isCheckedUpdateTime: boolean
-  ) {
-    if (
-      !(
-        (isCheckedUpdateTime === false && isCheckedDate === true) ||
-        (isCheckedUpdateTime === true && isCheckedDate === false)
-      )
-    ) {
+  handleOnClick(isCheckedDate: boolean, enableRoomType: boolean) {
+    if (isCheckedDate === false) {
       Swal.fire('Đã hết hạn đăng ký', 'Vui lòng quay lại sau', 'error');
     }
     if (!enableRoomType) {

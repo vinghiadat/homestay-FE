@@ -222,13 +222,13 @@ export class RoomTypeDetailComponent implements OnInit {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        this.vnpayService.getPayment(this.roomType.price).subscribe({
-          next: (response: string) => {
-            window.location.href = response;
-          },
-          error: (error) => {},
-        });
-        // this.addRoomReservation(this.sesmester, this.student, this.roomType, r);
+        this.addRoomReservation(this.sesmester, this.student, this.roomType, r);
+        // this.vnpayService.getPayment(this.roomType.price).subscribe({
+        //   next: (response: string) => {
+        //     window.location.href = response;
+        //   },
+        //   error: (error) => {},
+        // });
       }
     });
   }
@@ -239,10 +239,10 @@ export class RoomTypeDetailComponent implements OnInit {
     r: Room
   ) {
     const contract = new Contract(
-      null,
+      0,
       student,
       sesmester,
-      null,
+      0,
       roomType.name,
       r.numberRoom,
       new Date(),
@@ -251,7 +251,7 @@ export class RoomTypeDetailComponent implements OnInit {
       null,
       null
     );
-    console.log(contract);
+
     this.contractService.addContract(contract);
   }
 }

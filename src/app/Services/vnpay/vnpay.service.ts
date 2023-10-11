@@ -15,8 +15,10 @@ export class VNPayService {
     return `${AppConfig.baseUrl}/${endpoint}`;
   }
 
-  getPayment(price: number): Observable<string> {
-    let params = new HttpParams().set('price', price.toString());
+  getPayment(price: number, id: number): Observable<string> {
+    let params = new HttpParams()
+      .set('price', price.toString())
+      .set('contractId', id.toString());
     return this.http.get(this.getFullUrl('api/v1/pay'), {
       params,
       responseType: 'text', // Yêu cầu response dưới dạng văn bản
