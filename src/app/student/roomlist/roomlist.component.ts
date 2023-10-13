@@ -5,6 +5,8 @@ import { RoomlistService } from 'src/app/Services/roomtype/roomlist.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import Swal from 'sweetalert2';
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 @Component({
   selector: 'app-roomlist',
   templateUrl: './roomlist.component.html',
@@ -25,9 +27,12 @@ export class RoomlistComponent implements OnInit {
 
   constructor(
     private roomListService: RoomlistService,
-    private sesmesterService: SesmesterService
+    private sesmesterService: SesmesterService,
+
+    private spinner: NgxSpinnerService
   ) {}
   ngOnInit(): void {
+    this.spinner.show();
     this.sesmesterService.getSesmesterByStatus().subscribe({
       next: (response: Sesmester) => {
         this.sesmester = response;
@@ -82,6 +87,7 @@ export class RoomlistComponent implements OnInit {
   getAllRoomType(): void {
     this.roomListService.getAllRoomType().subscribe({
       next: (response: any) => {
+        this.spinner.hide();
         this.listRoomType = response;
       },
       error: (error) => {

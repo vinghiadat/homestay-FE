@@ -12,6 +12,7 @@ import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import { StudentService } from 'src/app/Services/student/student.service';
 import { VNPayService } from 'src/app/Services/vnpay/vnpay.service';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-info',
@@ -25,8 +26,11 @@ export class InfoComponent implements OnInit {
     private sesmesterService: SesmesterService,
     private contractService: ContractService,
     private vnPayService: VNPayService,
-    private registerService: RegisterServiceService
-  ) {}
+    private registerService: RegisterServiceService,
+    private spinner: NgxSpinnerService
+  ) {
+    this.spinner.show();
+  }
   student!: Student;
   sesmester!: Sesmester;
   contract!: Contract;
@@ -40,6 +44,9 @@ export class InfoComponent implements OnInit {
     ]).subscribe(([sesmester, student]) => {
       this.sesmester = sesmester;
       this.student = student;
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
       if (this.student.id && this.sesmester.id) {
         this.contractService
           .getContract(this.student.id, this.sesmester.id)
@@ -59,6 +66,20 @@ export class InfoComponent implements OnInit {
           },
           error: (error) => {},
         });
+    });
+  }
+  paymentService(r: RegisterServiceDto) {
+    if (new Date() > new Date(this.sesmester.registrationEndDate)) {
+      Swal.fire('Có lỗi!', 'Quá thời gian quy định đóng tiền', 'error');
+      return;
+    }
+    this.vnPayService.getPaymentService(r.price, r.id).subscribe({
+      next: (response: string) => {
+        window.location.href = response;
+      },
+      error: (error) => {
+        Swal.fire('Có lỗi!', error.error.message, 'error');
+      },
     });
   }
   payment(price: number, id: number) {

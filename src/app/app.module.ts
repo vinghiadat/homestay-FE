@@ -19,7 +19,8 @@ import { ServiceComponent } from './student/service/service.component';
 import { TemplateLayoutComponent } from './student/template-layout/template-layout.component';
 import { TemplateFormComponent } from './student/template-layout/template-form/template-form.component';
 import { PaymentFailedComponent } from './student/payment-failed/payment-failed.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,8 @@ import { PaymentFailedComponent } from './student/payment-failed/payment-failed.
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

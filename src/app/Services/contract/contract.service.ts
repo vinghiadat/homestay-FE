@@ -6,11 +6,17 @@ import { Contract } from 'src/app/Models/contract/contract';
 import { Service } from 'src/app/Models/service/service';
 import { AppConfig } from 'src/app/config/AppConfig';
 import Swal from 'sweetalert2';
+
+import { NgxSpinnerService } from 'ngx-spinner';
 @Injectable({
   providedIn: 'root',
 })
 export class ContractService {
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) {}
 
   //lấy full đường dẫn
   private getFullUrl(endpoint: string): string {
@@ -43,12 +49,14 @@ export class ContractService {
       .post<void>(this.getFullUrl('api/v1/contract'), contract)
       .subscribe({
         next: (repsonse: any) => {
+          this.spinner.hide();
           Swal.fire('Thành công', 'Đăng ký phòng thành công', 'success');
           setTimeout(() => {
             this.router.navigateByUrl('/info-student');
           }, 700);
         },
         error: (error) => {
+          this.spinner.hide();
           Swal.fire('Lỗi', error.error.message, 'error');
         },
       });

@@ -1358,3 +1358,11 @@ h4 {
 .tacvu ul li a:hover {
   color: #ab05a6;
 }
+.payment {
+  color: rgb(119, 119, 255);
+  cursor: pointer;
+  font-weight: bold;
+}
+.payment:hover {
+  color: blue;
+}

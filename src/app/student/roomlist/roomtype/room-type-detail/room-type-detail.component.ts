@@ -16,11 +16,9 @@ import { RoomlistService } from 'src/app/Services/roomtype/roomlist.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import { StudentService } from 'src/app/Services/student/student.service';
 import Swal from 'sweetalert2';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
 import { ContractService } from 'src/app/Services/contract/contract.service';
 import { Contract } from 'src/app/Models/contract/contract';
-import { VNPayService } from 'src/app/Services/vnpay/vnpay.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-room-type-detail',
   templateUrl: './room-type-detail.component.html',
@@ -38,8 +36,7 @@ export class RoomTypeDetailComponent implements OnInit {
     private sesmesterService: SesmesterService,
     private studentService: StudentService,
     private contractService: ContractService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private vnpayService: VNPayService
+    private spinner: NgxSpinnerService
   ) {}
   imageUrls: string[] = [];
   errorMessage: string = '';
@@ -220,15 +217,8 @@ export class RoomTypeDetailComponent implements OnInit {
       confirmButtonText: 'Có',
       cancelButtonText: 'Hủy bỏ',
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.addRoomReservation(this.sesmester, this.student, this.roomType, r);
-        // this.vnpayService.getPayment(this.roomType.price).subscribe({
-        //   next: (response: string) => {
-        //     window.location.href = response;
-        //   },
-        //   error: (error) => {},
-        // });
       }
     });
   }
@@ -238,6 +228,7 @@ export class RoomTypeDetailComponent implements OnInit {
     roomType: RoomType,
     r: Room
   ) {
+    this.spinner.show(); // Hiển thị spinner
     const contract = new Contract(
       0,
       student,

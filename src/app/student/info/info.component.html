@@ -1,4 +1,9 @@
 <app-header-student></app-header-student>
+<ngx-spinner
+  bdColor="rgba(1.5, 0, 0, 1)"
+  template="<img src='https://media.giphy.com/media/o8igknyuKs6aY/giphy.gif' />"
+>
+</ngx-spinner>
 <section class="mt-5">
   <div class="container">
     <div class="section-title mt-5">
@@ -77,15 +82,53 @@
             <th>Tên dịch vụ</th>
             <th>Giá</th>
             <th>Trạng thái</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of registerServiceDTOs; index as i">
             <td>{{ r.name }}</td>
-            <td>{{ r.price | number }} vnđ</td>
-            <td>{{ r.status == 0 ? "Chưa thanh toán" : "ThNH TOÁN RỒI" }}</td>
-            <td>Thanh toán tại đây</td>
+            <td>{{ r.price | number }}đ</td>
+            <td>
+              <div class="text-center" *ngIf="r.status == 0">
+                <div
+                  style="
+                    background-color: #b3b1b1;
+                    color: white;
+                    font-weight: BOLD;
+                  "
+                  class="p-2"
+                >
+                  CHƯA THANH TOÁN
+                </div>
+                <div class="payment" (click)="paymentService(r)">
+                  Thanh toán liền
+                </div>
+              </div>
+              <div class="text-center" *ngIf="r.status == 1">
+                <div
+                  style="
+                    background-color: green;
+                    color: white;
+                    font-weight: BOLD;
+                  "
+                  class="p-2"
+                >
+                  ĐÃ THANH TOÁN
+                </div>
+              </div>
+              <div class="text-center" *ngIf="r.status == 2">
+                <div
+                  style="
+                    background-color: rgb(0, 0, 0);
+                    color: white;
+                    font-weight: BOLD;
+                  "
+                  class="p-2"
+                >
+                  ĐÃ BỊ HỦY
+                </div>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -142,7 +185,7 @@
       hết toàn bộ dịch vụ đã đăng ký không hoàn tiền (nếu đã thanh toán dịch vụ)
       và không thể đăng ký ở ký túc xá về sau nữa !<br />
       <div class="text-center">
-        Thanh toán liền tại
+        Thanh toán tiền phòng tại
         <span
           *ngIf="contract"
           style="cursor: pointer; color: blue; font-weight: bolder"
