@@ -251,7 +251,6 @@ export class RoomTypeDetailComponent implements OnInit {
       null,
       null
     );
-
     this.contractService.addContract(contract);
   }
 }

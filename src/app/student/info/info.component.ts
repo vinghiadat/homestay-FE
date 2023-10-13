@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Contract } from 'src/app/Models/contract/contract';
+import { RegisterServiceDto } from 'src/app/Models/register-service/register-service-dto';
 import { Sesmester } from 'src/app/Models/sesmester/sesmester';
 import { Student } from 'src/app/Models/student/student';
 import { AuthService } from 'src/app/Services/auth/auth.service';
 import { ContractService } from 'src/app/Services/contract/contract.service';
+import { RegisterServiceService } from 'src/app/Services/register-service/register-service.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import { StudentService } from 'src/app/Services/student/student.service';
 import { VNPayService } from 'src/app/Services/vnpay/vnpay.service';
@@ -23,11 +25,12 @@ export class InfoComponent implements OnInit {
     private sesmesterService: SesmesterService,
     private contractService: ContractService,
     private vnPayService: VNPayService,
-    private router: Router
+    private registerService: RegisterServiceService
   ) {}
   student!: Student;
   sesmester!: Sesmester;
   contract!: Contract;
+  registerServiceDTOs: RegisterServiceDto[] = [];
   ngOnInit(): void {
     // Đặt vị trí cuộn của trang về đầu trang
     window.scrollTo(0, 0);
@@ -47,6 +50,15 @@ export class InfoComponent implements OnInit {
             error: (error) => {},
           });
       }
+      this.registerService
+        .getAllRegisterService(this.sesmester.id, this.student.id)
+        .subscribe({
+          next: (response: RegisterServiceDto[]) => {
+            this.registerServiceDTOs = response;
+            console.log(this.registerServiceDTOs);
+          },
+          error: (error) => {},
+        });
     });
   }
   payment(price: number, id: number) {

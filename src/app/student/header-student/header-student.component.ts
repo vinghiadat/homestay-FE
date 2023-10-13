@@ -66,17 +66,17 @@ export class HeaderStudentComponent implements OnInit {
       ) {
         this.isCheckedDate = true;
       }
-      // if (this.student.id && this.sesmester.id) {
-      //   this.contractService
-      //     .getContract(this.student.id, this.sesmester.id)
-      //     .subscribe({
-      //       next: (response: Contract) => {
-      //         console.log(response);
-      //         this.contract = response;
-      //       },
-      //       error: (error) => {},
-      //     });
-      // }
+      if (this.student.id && this.sesmester.id) {
+        this.contractService
+          .getContract(this.student.id, this.sesmester.id)
+          .subscribe({
+            next: (response: Contract) => {
+              console.log(response);
+              this.contract = response;
+            },
+            error: (error) => {},
+          });
+      }
     });
   }
   handleLogout() {

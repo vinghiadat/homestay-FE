@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { Contract } from 'src/app/Models/contract/contract';
+import { RegisterService } from 'src/app/Models/register-service/register-service';
 import { Service } from 'src/app/Models/service/service';
 import { Sesmester } from 'src/app/Models/sesmester/sesmester';
 import { Student } from 'src/app/Models/student/student';
 import { AuthService } from 'src/app/Services/auth/auth.service';
 import { ContractService } from 'src/app/Services/contract/contract.service';
+import { RegisterServiceService } from 'src/app/Services/register-service/register-service.service';
 import { ServiceService } from 'src/app/Services/service/service.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import { StudentService } from 'src/app/Services/student/student.service';
@@ -24,7 +26,8 @@ export class ServiceComponent implements OnInit {
     private authService: AuthService,
     private studentService: StudentService,
     private contractService: ContractService,
-    private router: Router
+    private router: Router,
+    private registerService: RegisterServiceService
   ) {}
   services: Service[] = [];
   sesmester!: Sesmester;
@@ -97,7 +100,7 @@ export class ServiceComponent implements OnInit {
       error: (error) => {},
     });
   }
-  registerService(service: Service) {
+  register(service: Service) {
     if (this.isCheckedDate == false) {
       Swal.fire(
         'Ngày đăng ký không phù hợp',
@@ -116,13 +119,7 @@ export class ServiceComponent implements OnInit {
       cancelButtonText: 'Tắt',
       confirmButtonText: 'Có',
     }).then((result) => {
-      let s: Service[] = [];
-      s.push(service);
-      if (result.isConfirmed) {
-        if (this.contract.id) {
-          this.contractService.updateServiceForContract(this.contract.id, s);
-        }
-      }
+      this.registerService.registerService(this.student, service);
     });
   }
 }
