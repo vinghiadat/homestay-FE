@@ -21,6 +21,7 @@ import { TemplateFormComponent } from './student/template-layout/template-form/t
 import { PaymentFailedComponent } from './student/payment-failed/payment-failed.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialComponent } from './student/material/material.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     TemplateLayoutComponent,
     TemplateFormComponent,
     PaymentFailedComponent,
+    MaterialComponent,
   ],
   imports: [
     BrowserModule,

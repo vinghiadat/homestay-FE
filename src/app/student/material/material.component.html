@@ -1,0 +1,77 @@
+<app-header-student></app-header-student>
+<section class="mt-5 container">
+  <div class="">
+    <div class="section-title mt-5">
+      <h2>Cơ sở vật chất</h2>
+      <p>Nếu phòng có sự cố hãy phản hồi</p>
+    </div>
+  </div>
+  <div class="table-filter">
+    <form #f="ngForm">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row" *ngIf="sesmester">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2">
+              <span style="font-weight: bold">Học kỳ:</span>
+              0{{ sesmester.sesmester }}
+            </div>
+            <div class="col-sm-3">
+              <span style="font-weight: bold">Năm học:</span>
+              {{ sesmester.schoolYear }}
+            </div>
+            <div class="col-sm-3">
+              <span style="font-weight: bold">Thời gian sử dụng:</span>
+              <br />{{ sesmester.startDate | date : "dd/MM/yyyy" }}
+              đến
+              {{ sesmester.endDate | date : "dd/MM/yyyy" }}
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+<section id="services" class="services">
+  <div class="container" data-aos="fade-up">
+    <div class="row">
+      <div class="col-sm-4">
+        <div id="output"></div>
+        <form method="get">
+          <select
+            data-placeholder="Choose tags ..."
+            name="tags[]"
+            multiple
+            class="chosen-select"
+          >
+            <option value="Engineering">Engineering</option>
+            <option value="Carpentry">Carpentry</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Electical">Electrical</option>
+            <option value="Mechanical">Mechanical</option>
+            <option value="HVAC">HVAC</option>
+          </select>
+          <input type="submit" />
+        </form>
+      </div>
+      <div class="col-sm-8">
+        <table class="table">
+          <thead class="table-dark">
+            <tr>
+              <th>Thứ tự</th>
+              <th>Nội dung</th>
+              <th>Ngày gửi</th>
+              <th>Trạng thái</th>
+              <th>Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer-student></app-footer-student>

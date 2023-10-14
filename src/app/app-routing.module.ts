@@ -11,6 +11,7 @@ import { ServiceComponent } from './student/service/service.component';
 import { TemplateLayoutComponent } from './student/template-layout/template-layout.component';
 import { TemplateFormComponent } from './student/template-layout/template-form/template-form.component';
 import { PaymentFailedComponent } from './student/payment-failed/payment-failed.component';
+import { MaterialComponent } from './student/material/material.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'info-student', component: InfoComponent },
   { path: 'service', component: ServiceComponent },
   { path: 'payment-failed', component: PaymentFailedComponent },
+  { path: 'feedback', component: MaterialComponent },
   {
     path: 'template',
     component: TemplateLayoutComponent,
