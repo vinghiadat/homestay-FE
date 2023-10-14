@@ -92,14 +92,6 @@ export class HeaderStudentComponent implements OnInit {
       );
       return;
     }
-    if (this.isCheckedDate) {
-      Swal.fire(
-        'Có lỗi xảy ra',
-        'Vui lòng gửi phòng hồi trong thời gian ở ký túc xá',
-        'error'
-      );
-      return;
-    }
   }
   handleService() {
     if (!this.contract) {
