@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { Contract } from 'src/app/Models/contract/contract';
 import { RegisterServiceDto } from 'src/app/Models/register-service/register-service-dto';
@@ -13,6 +12,8 @@ import { StudentService } from 'src/app/Services/student/student.service';
 import { VNPayService } from 'src/app/Services/vnpay/vnpay.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BillService } from 'src/app/Services/bill/bill.service';
+import { Bill } from 'src/app/Models/bill/bill';
 
 @Component({
   selector: 'app-info',
@@ -27,13 +28,13 @@ export class InfoComponent implements OnInit {
     private contractService: ContractService,
     private vnPayService: VNPayService,
     private registerService: RegisterServiceService,
-    private spinner: NgxSpinnerService
-  ) {
-    this.spinner.show();
-  }
+    private spinner: NgxSpinnerService,
+    private billService: BillService
+  ) {}
   student!: Student;
   sesmester!: Sesmester;
   contract!: Contract;
+  bills: Bill[] = [];
   registerServiceDTOs: RegisterServiceDto[] = [];
   ngOnInit(): void {
     // Đặt vị trí cuộn của trang về đầu trang
@@ -44,15 +45,25 @@ export class InfoComponent implements OnInit {
     ]).subscribe(([sesmester, student]) => {
       this.sesmester = sesmester;
       this.student = student;
-      setTimeout(() => {
-        this.spinner.hide();
-      }, 500);
       if (this.student.id && this.sesmester.id) {
         this.contractService
           .getContract(this.student.id, this.sesmester.id)
           .subscribe({
             next: (response: Contract) => {
               this.contract = response;
+              // Lấy Bill
+              if (response.roomType && response.numberRoom) {
+                this.billService
+                  .getBill(response.roomType, response.numberRoom)
+                  .subscribe({
+                    next: (response: Bill[]) => {
+                      this.bills = response;
+                    },
+                    error: (error) => {},
+                  });
+              }
+
+              //
             },
             error: (error) => {},
           });

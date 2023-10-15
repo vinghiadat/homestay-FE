@@ -1,9 +1,5 @@
 <app-header-student></app-header-student>
-<ngx-spinner
-  bdColor="rgba(1.5, 0, 0, 1)"
-  template="<img src='https://media.giphy.com/media/o8igknyuKs6aY/giphy.gif' />"
->
-</ngx-spinner>
+
 <section class="mt-5">
   <div class="container">
     <div class="section-title mt-5">
@@ -198,6 +194,51 @@
 </section>
 <section class="container">
   <h4>Hóa đơn điện nước</h4>
-  <table class="table table-striped text-center"></table>
+  <table class="table text-center">
+    <thead class="table-dark">
+      <tr>
+        <th>Thứ tự</th>
+        <th>Chỉ số điện đầu</th>
+        <th>Chỉ số điện cuối</th>
+        <th>Chỉ số nước đầu</th>
+        <th>Chỉ số nước cuối</th>
+        <th>Tổng tiền</th>
+        <th>Loại phòng</th>
+        <th>Phòng</th>
+        <th>Trạng thái</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of bills; index as i">
+        <td>{{ i + 1 }}</td>
+        <td>{{ b.initialElectricity }}</td>
+        <td>{{ b.finalElectricity }}</td>
+        <td>{{ b.initialWater }}</td>
+        <td>{{ b.finalWater }}</td>
+        <td>{{ b.price | number }} đ</td>
+        <td>{{ b.roomType }}</td>
+        <td>{{ b.numberRoom }}</td>
+        <td>
+          <div class="text-center" *ngIf="b.status == false">
+            <div
+              style="background-color: #b3b1b1; color: white; font-weight: BOLD"
+              class="p-2"
+            >
+              CHƯA THANH TOÁN
+            </div>
+            <div class="payment">Thanh toán liền</div>
+          </div>
+          <div class="text-center" *ngIf="b.status == true">
+            <div
+              style="background-color: green; color: white; font-weight: BOLD"
+              class="p-2"
+            >
+              ĐÃ THANH TOÁN
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </section>
 <app-footer-student></app-footer-student>
