@@ -20,7 +20,9 @@
               {{ student.numberStudent }}
             </td>
             <td style="width: 25%; text-align: right">Ngày sinh</td>
-            <td style="width: 25%; text-align: left">{{ student.birthday }}</td>
+            <td style="width: 25%; text-align: left">
+              {{ student.birthday | date : "dd-MM-yyyy" }}
+            </td>
           </tr>
           <tr>
             <td style="width: 25%; text-align: right">Họ tên</td>
@@ -55,23 +57,47 @@
             </td>
           </tr>
           <tr>
-            <td style="width: 25%; text-align: right">Ngày băt đầu</td>
+            <td style="width: 25%; text-align: right">Ngày băt đầu ở</td>
             <td style="width: 25%; text-align: left">
               <span *ngIf="contract">{{
                 sesmester.startDate | date : "dd-MM-yyyy"
               }}</span>
             </td>
-            <td style="width: 25%; text-align: right">Ngày kết thúc</td>
+            <td style="width: 25%; text-align: right">Ngày kết thúc ở</td>
             <td style="width: 25%; text-align: left">
               <span *ngIf="contract">{{
                 sesmester.endDate | date : "dd-MM-yyyy"
               }}</span>
             </td>
           </tr>
+          <tr>
+            <td style="width: 25%; text-align: right">Học kỳ</td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{ sesmester.sesmester }}</span>
+            </td>
+            <td style="width: 25%; text-align: right">Năm học</td>
+            <td style="width: 25%; text-align: left">
+              <span *ngIf="contract">{{ sesmester.schoolYear }}</span>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-4" *ngIf="contract">
+      <div style="text-align: justify">
+        <p>
+          - Lưu ý: hạn đóng tiền dịch vụ
+          <span style="font-weight: bold; color: lightcoral"
+            >từ ngày đăng ký thành công đến ngày
+            {{ sesmester.registrationEndDate | date : "dd-MM-yyyy" }}</span
+          >
+          . Nếu không thanh toán đúng hạn sẽ bị
+          <span style="font-weight: bold"
+            >XÓA VÀ KHÔNG CHO SỬ DỤNG DỊCH VỤ</span
+          >
+          theo quy định.
+        </p>
+      </div>
       <table class="table">
         <thead class="table-dark">
           <tr>
@@ -194,6 +220,16 @@
 </section>
 <section class="container">
   <h4>Hóa đơn điện nước</h4>
+  <div>
+    <p>
+      - Lưu ý: hạn đóng tiền điện nước
+      <span style="font-weight: bold; color: lightcoral"
+        >từ ngày nhận thông báo đến ngày cuối cùng trong tháng</span
+      >
+      . Nếu không thanh toán đúng hạn sẽ bị
+      <span style="font-weight: bold">CẮT ĐIỆN NƯỚC</span> theo quy định.
+    </p>
+  </div>
   <table class="table text-center">
     <thead class="table-dark">
       <tr>
@@ -205,6 +241,7 @@
         <th>Tổng tiền</th>
         <th>Loại phòng</th>
         <th>Phòng</th>
+        <th>Ngày tạo</th>
         <th>Trạng thái</th>
       </tr>
     </thead>
@@ -218,6 +255,7 @@
         <td>{{ b.price | number }} đ</td>
         <td>{{ b.roomType }}</td>
         <td>{{ b.numberRoom }}</td>
+        <td>{{ b.createdDate | date : "dd-MM-yyyy" }}</td>
         <td>
           <div class="text-center" *ngIf="b.status == false">
             <div
