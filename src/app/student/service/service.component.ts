@@ -29,6 +29,7 @@ export class ServiceComponent implements OnInit {
     private router: Router,
     private registerService: RegisterServiceService
   ) {}
+  motorbikeLicensePlate: string = '';
   services: Service[] = [];
   sesmester!: Sesmester;
   student!: Student;
@@ -109,6 +110,14 @@ export class ServiceComponent implements OnInit {
       );
       return;
     }
+    if (service.name === 'Gửi xe máy' && !this.motorbikeLicensePlate) {
+      Swal.fire(
+        'Vui lòng nhập biển số xe máy',
+        'Bạn phải nhập biển số xe máy trước khi đăng ký',
+        'warning'
+      );
+      return;
+    }
     Swal.fire({
       title: 'Xác nhận đăng ký',
       text: 'Bạn có chắc chắn đăng ký dịch vụ này?',
@@ -119,7 +128,14 @@ export class ServiceComponent implements OnInit {
       cancelButtonText: 'Tắt',
       confirmButtonText: 'Có',
     }).then((result) => {
-      this.registerService.registerService(this.student, service);
+      if (result.isConfirmed) {
+        this.registerService.registerService(
+          this.student,
+          service,
+          this.motorbikeLicensePlate
+        );
+        this.motorbikeLicensePlate = '';
+      }
     });
   }
 }

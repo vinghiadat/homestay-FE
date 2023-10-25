@@ -4,7 +4,7 @@ import { Sesmester } from 'src/app/Models/sesmester/sesmester';
 import { RoomlistService } from 'src/app/Services/roomtype/roomlist.service';
 import { SesmesterService } from 'src/app/Services/sesmester/sesmester.service';
 import Swal from 'sweetalert2';
-
+import { formatDate } from '@angular/common';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
@@ -59,16 +59,37 @@ export class RoomlistComponent implements OnInit {
         const endDateMonth = registrationEndDate.getMonth() + 1;
         const endDateYear = registrationEndDate.getFullYear();
 
+        console.log(this.sesmester.registrationStartDate);
+        console.log(this.sesmester.registrationEndDate);
+        console.log(myDateYear >= startDateYear);
+        console.log(myDateYear <= endDateYear);
+        console.log(myDateMonth >= startDateMonth);
+        console.log(myDateMonth <= endDateMonth);
+        console.log(myDateDay >= startDateDay);
+        console.log(myDateDay <= endDateDay);
+        console.log(this.sesmester.registrationEndDate + ' & && ' + new Date());
+
         if (
-          myDateYear >= startDateYear &&
-          myDateYear <= endDateYear &&
-          myDateMonth >= startDateMonth &&
-          myDateMonth <= endDateMonth &&
-          myDateDay >= startDateDay &&
-          myDateDay <= endDateDay
+          formatDate(
+            this.sesmester.registrationStartDate,
+            'yyyy-MM-dd',
+            'en'
+          ) <= formatDate(new Date(), 'yyyy-MM-dd', 'en') &&
+          formatDate(this.sesmester.registrationEndDate, 'yyyy-MM-dd', 'en') >=
+            formatDate(new Date(), 'yyyy-MM-dd', 'en')
         ) {
           this.isCheckedDate = true;
         }
+        // if (
+        //   myDateYear >= startDateYear &&
+        //   myDateYear <= endDateYear &&
+        //   myDateMonth >= startDateMonth &&
+        //   myDateMonth <= endDateMonth &&
+        //   myDateDay >= startDateDay &&
+        //   myDateDay <= endDateDay
+        // ) {
+        //   this.isCheckedDate = true;
+        // }
       },
       error: (error) => {},
     });

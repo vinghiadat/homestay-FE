@@ -24,11 +24,6 @@ export class RoomComponent implements OnInit {
   imageUrl: string = '';
   ngOnInit(): void {
     if (this.roomType && this.roomType.images.length > 0) {
-      this.imageService
-        .getImage(this.roomType.images[0].name)
-        .subscribe((response) => {
-          this.displayImage(response.body!);
-        });
     }
   }
   displayImage(imageData: Blob) {

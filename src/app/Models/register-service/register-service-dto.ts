@@ -3,6 +3,7 @@ export class RegisterServiceDto {
     public id: number,
     public name: string,
     public price: number,
-    public status: number
+    public status: number,
+    public motorbikeLicensePlate: string
   ) {}
 }

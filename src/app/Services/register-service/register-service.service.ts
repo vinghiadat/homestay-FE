@@ -18,11 +18,16 @@ export class RegisterServiceService {
   private getFullUrl(endpoint: string): string {
     return `${AppConfig.baseUrl}/${endpoint}`;
   }
-  registerService(student: Student, service: Service): void {
+  registerService(
+    student: Student,
+    service: Service,
+    motorbikeLicensePlate: string
+  ): void {
     this.http
       .post(this.getFullUrl(`api/v1/register-services`), {
         student,
         service,
+        motorbikeLicensePlate,
       })
       .subscribe({
         next: (response: any) => {

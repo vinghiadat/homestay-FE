@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { ContractService } from 'src/app/Services/contract/contract.service';
 import { Contract } from 'src/app/Models/contract/contract';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-room-type-detail',
   templateUrl: './room-type-detail.component.html',
@@ -137,25 +138,18 @@ export class RoomTypeDetailComponent implements OnInit {
           const endDateYear = registrationEndDate.getFullYear();
 
           if (
-            myDateYear >= startDateYear &&
-            myDateYear <= endDateYear &&
-            myDateMonth >= startDateMonth &&
-            myDateMonth <= endDateMonth &&
-            myDateDay >= startDateDay &&
-            myDateDay <= endDateDay
+            formatDate(
+              this.sesmester.registrationStartDate,
+              'yyyy-MM-dd',
+              'en'
+            ) <= formatDate(new Date(), 'yyyy-MM-dd', 'en') &&
+            formatDate(
+              this.sesmester.registrationEndDate,
+              'yyyy-MM-dd',
+              'en'
+            ) >= formatDate(new Date(), 'yyyy-MM-dd', 'en')
           ) {
             this.isCheckedDate = true;
-          }
-
-          if (
-            myDateYear >= startUpdateYear &&
-            myDateYear <= endUpdateYear &&
-            myDateMonth >= startUpdateMonth &&
-            myDateMonth <= endUpdateMonth &&
-            myDateDay >= startUpdateDay &&
-            myDateDay <= endUpdateDay
-          ) {
-            this.isCheckedUpdateTime = true;
           }
           if (!this.isCheckedUpdateTime && !this.isCheckedDate) {
             this.router.navigateByUrl('/rooms');

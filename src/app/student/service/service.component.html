@@ -50,31 +50,38 @@
         *ngFor="let s of services; index as i"
       >
         <div class="icon-box" style="width: 100%">
-          <div class="icon">
-            <i
-              [ngClass]="
-                i === 0
-                  ? 'fa fa-bicycle'
-                  : i === 1
-                  ? 'fa fa-motorcycle'
-                  : 'fa fa-american-sign-language-interpreting'
-              "
-              style="font-size: 36px"
-            ></i>
+          <div style="height: 100%">
+            <div class="icon">
+              <i
+                [ngClass]="
+                  i === 0
+                    ? 'fa fa-bicycle'
+                    : i === 1
+                    ? 'fa fa-motorcycle'
+                    : 'fa fa-american-sign-language-interpreting'
+                "
+                style="font-size: 36px"
+              ></i>
+            </div>
+            <h4>
+              <a style="cursor: pointer">{{ s.name }}</a>
+            </h4>
+            <p style="font-size: 17px">
+              <b>Giá:</b> {{ s.price | number }}đ/tháng
+            </p>
+            <p>
+              {{ s.description }}
+            </p>
+            <input
+              *ngIf="s.name === 'Gửi xe máy'"
+              [(ngModel)]="motorbikeLicensePlate"
+              placeholder="Nhập biển số xe máy"
+            />
           </div>
-          <h4>
-            <a style="cursor: pointer">{{ s.name }}</a>
-          </h4>
-          <p style="font-size: 17px">
-            <b>Giá:</b> {{ s.price | number }}đ/tháng
-          </p>
-          <p>
-            {{ s.description }}
-          </p>
+          <button (click)="register(s)" class="btn service_regist">
+            Đăng ký
+          </button>
         </div>
-        <button (click)="register(s)" class="btn service_regist">
-          Đăng ký
-        </button>
       </div>
     </div>
   </div>

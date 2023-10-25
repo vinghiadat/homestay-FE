@@ -6,6 +6,7 @@ export class RegisterService {
     public id: number = 0,
     public student: Student,
     public service: Service,
-    public status: number = 0
+    public status: number = 0,
+    public motorbikeLicensePlate: string = ''
   ) {}
 }
