@@ -72,11 +72,15 @@
             <p>
               {{ s.description }}
             </p>
-            <input
-              *ngIf="s.name === 'Gửi xe máy'"
-              [(ngModel)]="motorbikeLicensePlate"
-              placeholder="Nhập biển số xe máy"
-            />
+            <form [formGroup]="licensePlateForm">
+              <input
+                type="text"
+                formControlName="licensePlate"
+                *ngIf="s.name === 'Gửi xe máy'"
+                [(ngModel)]="motorbikeLicensePlate"
+                placeholder="Nhập biển số xe máy"
+              />
+            </form>
           </div>
           <button (click)="register(s)" class="btn service_regist">
             Đăng ký

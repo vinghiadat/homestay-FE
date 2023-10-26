@@ -1,4 +1,6 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, forkJoin, of } from 'rxjs';
 import { Contract } from 'src/app/Models/contract/contract';
@@ -20,6 +22,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./service.component.css'],
 })
 export class ServiceComponent implements OnInit {
+  licensePlateForm: FormGroup;
   constructor(
     private service: ServiceService,
     private sesmesterService: SesmesterService,
@@ -27,8 +30,16 @@ export class ServiceComponent implements OnInit {
     private studentService: StudentService,
     private contractService: ContractService,
     private router: Router,
-    private registerService: RegisterServiceService
-  ) {}
+    private registerService: RegisterServiceService,
+    private fb: FormBuilder
+  ) {
+    this.licensePlateForm = this.fb.group({
+      licensePlate: [
+        '',
+        [Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{3}[0-9]{3}$/)],
+      ],
+    });
+  }
   motorbikeLicensePlate: string = '';
   services: Service[] = [];
   sesmester!: Sesmester;
@@ -70,12 +81,10 @@ export class ServiceComponent implements OnInit {
       const endDateYear = registrationEndDate.getFullYear();
 
       if (
-        myDateYear >= startDateYear &&
-        myDateYear <= endDateYear &&
-        myDateMonth >= startDateMonth &&
-        myDateMonth <= endDateMonth &&
-        myDateDay >= startDateDay &&
-        myDateDay <= endDateDay
+        formatDate(this.sesmester.registrationStartDate, 'yyyy-MM-dd', 'en') <=
+          formatDate(new Date(), 'yyyy-MM-dd', 'en') &&
+        formatDate(this.sesmester.registrationEndDate, 'yyyy-MM-dd', 'en') >=
+          formatDate(new Date(), 'yyyy-MM-dd', 'en')
       ) {
         this.isCheckedDate = true;
       }
@@ -118,6 +127,15 @@ export class ServiceComponent implements OnInit {
       );
       return;
     }
+    if (this.licensePlateForm.valid == false) {
+      Swal.fire(
+        'Có lỗi',
+        'Vui lòng nhập đúng định dạng biển số xe bắt đầu bằng 2 chữ số, tiếp theo là 3 chữ cái, cuối cùng là 3 chữ số. Ví dụ (12ABC223)',
+        'error'
+      );
+      return;
+    }
+
     Swal.fire({
       title: 'Xác nhận đăng ký',
       text: 'Bạn có chắc chắn đăng ký dịch vụ này?',

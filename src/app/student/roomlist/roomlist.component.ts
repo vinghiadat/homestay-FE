@@ -59,15 +59,15 @@ export class RoomlistComponent implements OnInit {
         const endDateMonth = registrationEndDate.getMonth() + 1;
         const endDateYear = registrationEndDate.getFullYear();
 
-        console.log(this.sesmester.registrationStartDate);
-        console.log(this.sesmester.registrationEndDate);
-        console.log(myDateYear >= startDateYear);
-        console.log(myDateYear <= endDateYear);
-        console.log(myDateMonth >= startDateMonth);
-        console.log(myDateMonth <= endDateMonth);
-        console.log(myDateDay >= startDateDay);
-        console.log(myDateDay <= endDateDay);
-        console.log(this.sesmester.registrationEndDate + ' & && ' + new Date());
+        // console.log(this.sesmester.registrationStartDate);
+        // console.log(this.sesmester.registrationEndDate);
+        // console.log(myDateYear >= startDateYear);
+        // console.log(myDateYear <= endDateYear);
+        // console.log(myDateMonth >= startDateMonth);
+        // console.log(myDateMonth <= endDateMonth);
+        // console.log(myDateDay >= startDateDay);
+        // console.log(myDateDay <= endDateDay);
+        // console.log(this.sesmester.registrationEndDate + ' & && ' + new Date());
 
         if (
           formatDate(

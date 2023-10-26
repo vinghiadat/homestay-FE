@@ -21,13 +21,14 @@ export class RoomComponent implements OnInit {
   //     });
   //   });
   // }
-  imageUrl: string = '';
+  imageUrls: string[] = [];
   ngOnInit(): void {
     if (this.roomType && this.roomType.images.length > 0) {
+      this.roomType.images.forEach((image) => {
+        this.imageService.getImage(image.name).subscribe((response) => {
+          this.imageUrls.push(URL.createObjectURL(response.body!));
+        });
+      });
     }
-  }
-  displayImage(imageData: Blob) {
-    this.imageUrl = URL.createObjectURL(imageData);
-    // Sử dụng imageUrl để hiển thị ảnh trong template của bạn
   }
 }
