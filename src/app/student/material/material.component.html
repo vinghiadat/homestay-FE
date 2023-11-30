@@ -56,15 +56,18 @@
               max="5"
             />
           </div>
-          <div style="margin-top: 5%">
+          <div>
             <button (click)="addFeedback()">Xác nhận</button>
           </div>
         </form>
       </div>
       <div class="col-sm-8">
-        <div style="color: rgb(72, 62, 62); font-style: italic">
-          * Hệ thống sẽ phản hồi trong vòng 3 ngày. Bạn sẽ nhận được thông tin
-          phản hồi trên hệ thống này và email sinh viên *
+        <div
+          style="color: rgb(72, 62, 62); font-style: italic; font-weight: bold"
+        >
+          <i class="fa-solid fa-triangle-exclamation"></i> Hệ thống sẽ phản hồi
+          <span class="text-primary">trong vòng 3 ngày</span> . Bạn sẽ nhận được
+          thông tin phản hồi trên hệ thống này và email sinh viên
         </div>
         <table class="table text-center">
           <thead class="table-dark">

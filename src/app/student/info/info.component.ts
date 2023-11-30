@@ -14,6 +14,8 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BillService } from 'src/app/Services/bill/bill.service';
 import { Bill } from 'src/app/Models/bill/bill';
+import { BlacklistService } from 'src/app/Services/blacklist/blacklist.service';
+import { Blacklist } from 'src/app/Models/blacklist/blacklist';
 
 @Component({
   selector: 'app-info',
@@ -29,13 +31,15 @@ export class InfoComponent implements OnInit {
     private vnPayService: VNPayService,
     private registerService: RegisterServiceService,
     private spinner: NgxSpinnerService,
-    private billService: BillService
+    private billService: BillService,
+    private blackListService: BlacklistService
   ) {}
   student!: Student;
   sesmester!: Sesmester;
   contract!: Contract;
   bills: Bill[] = [];
   registerServiceDTOs: RegisterServiceDto[] = [];
+  blackList!: Blacklist;
   ngOnInit(): void {
     // Đặt vị trí cuộn của trang về đầu trang
     window.scrollTo(0, 0);
@@ -67,6 +71,12 @@ export class InfoComponent implements OnInit {
             },
             error: (error) => {},
           });
+        this.blackListService.findByStudentId(this.student.id).subscribe({
+          next: (response: Blacklist) => {
+            this.blackList = response;
+          },
+          error: (error) => {},
+        });
       }
       this.registerService
         .getAllRegisterService(this.sesmester.id, this.student.id)
@@ -99,6 +109,16 @@ export class InfoComponent implements OnInit {
       return;
     }
     this.vnPayService.getPayment(price, id).subscribe({
+      next: (response: string) => {
+        window.location.href = response;
+      },
+      error: (error) => {
+        Swal.fire('Có lỗi!', error.error.message, 'error');
+      },
+    });
+  }
+  paymentBill(price: number, id: number) {
+    this.vnPayService.getPaymentBill(price, id).subscribe({
       next: (response: string) => {
         window.location.href = response;
       },

@@ -98,9 +98,9 @@
           theo quy định.
         </p>
       </div>
-      <table class="table">
+      <table class="table" style="font-size: small">
         <thead class="table-dark">
-          <tr>
+          <tr class="align-middle">
             <th>Tên dịch vụ</th>
             <th>Giá</th>
             <th>Biển số (xe máy)</th>
@@ -115,12 +115,8 @@
             <td>
               <div class="text-center" *ngIf="r.status == 0">
                 <div
-                  style="
-                    background-color: #b3b1b1;
-                    color: white;
-                    font-weight: BOLD;
-                  "
-                  class="p-2"
+                  class="p-2 bg-danger bg-opacity-5 text-white"
+                  style="font-weight: bold"
                 >
                   CHƯA THANH TOÁN
                 </div>
@@ -174,6 +170,10 @@
       </li>
     </ul>
   </div> -->
+  <div *ngIf="blackList">
+    <h5>BẠN ĐANG TRONG DANH SÁCH ĐEN</h5>
+    <p style="font-weight: bold">Lý do: {{ blackList.reason }}</p>
+  </div>
   <div *ngIf="contract">
     <div class="text-center">
       <b>Tiền phòng:</b> {{ contract.totalPrice | number }}đ
@@ -196,7 +196,7 @@
       <div
         class="text-success"
         style="font-weight: bold; font-style: italic"
-        *ngIf="contract.status == 2"
+        *ngIf="contract.status == 2 || contract.status == 3"
       >
         Bạn đang trong danh sách đen
       </div>
@@ -261,12 +261,14 @@
         <td>
           <div class="text-center" *ngIf="b.status == false">
             <div
-              style="background-color: #b3b1b1; color: white; font-weight: BOLD"
-              class="p-2"
+              class="p-2 bg-danger bg-opacity-5 text-white"
+              style="font-weight: bold"
             >
               CHƯA THANH TOÁN
             </div>
-            <div class="payment">Thanh toán liền</div>
+            <div class="payment" (click)="paymentBill(b.price, b.id)">
+              Thanh toán liền
+            </div>
           </div>
           <div class="text-center" *ngIf="b.status == true">
             <div

@@ -9,6 +9,7 @@ export class Student {
     public major: string,
     public birthday: Date,
     public gender: number,
-    public classroom: string
+    public classroom: string,
+    public status: number
   ) {}
 }

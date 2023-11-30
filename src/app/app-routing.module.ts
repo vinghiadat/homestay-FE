@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './student/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginStudentComponent } from './student/login-student/login-student.component';
 import { RoomlistComponent } from './student/roomlist/roomlist.component';
@@ -12,10 +11,11 @@ import { TemplateLayoutComponent } from './student/template-layout/template-layo
 import { TemplateFormComponent } from './student/template-layout/template-form/template-form.component';
 import { PaymentFailedComponent } from './student/payment-failed/payment-failed.component';
 import { MaterialComponent } from './student/material/material.component';
+import { HomesComponent } from './student/homes/homes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomesComponent },
   { path: 'login', component: LoginStudentComponent },
   { path: 'rooms', component: RoomlistComponent },
   { path: 'room-type-detail/:id', component: RoomTypeDetailComponent },

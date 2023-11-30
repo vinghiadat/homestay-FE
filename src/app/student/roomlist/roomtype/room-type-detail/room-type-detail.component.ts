@@ -212,6 +212,19 @@ export class RoomTypeDetailComponent implements OnInit {
       cancelButtonText: 'Hủy bỏ',
     }).then((result) => {
       if (result.isConfirmed) {
+        console.log(this.student);
+        if (this.student.status == 1) {
+          Swal.fire('Không thể đăng ký', 'Bạn đã tốt nghiệp rồi!', 'error');
+          return;
+        }
+        if (this.student.status == 2 || this.student.status == 3) {
+          Swal.fire(
+            'Không thể đăng ký',
+            'Bạn đang trong danh sách đen',
+            'error'
+          );
+          return;
+        }
         this.addRoomReservation(this.sesmester, this.student, this.roomType, r);
       }
     });

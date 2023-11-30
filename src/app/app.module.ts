@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './student/home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderStudentComponent } from './student/header-student/header-student.component';
@@ -22,13 +21,14 @@ import { PaymentFailedComponent } from './student/payment-failed/payment-failed.
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialComponent } from './student/material/material.component';
+import { HomesComponent } from './student/homes/homes.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderStudentComponent,
     FooterStudentComponent,
     LoginStudentComponent,
-    HomeComponent,
+    HomesComponent,
     NotFoundComponent,
     RoomlistComponent,
     RoomComponent,
@@ -40,6 +40,7 @@ import { MaterialComponent } from './student/material/material.component';
     TemplateFormComponent,
     PaymentFailedComponent,
     MaterialComponent,
+    HomesComponent,
   ],
   imports: [
     BrowserModule,

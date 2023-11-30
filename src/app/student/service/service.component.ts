@@ -36,7 +36,10 @@ export class ServiceComponent implements OnInit {
     this.licensePlateForm = this.fb.group({
       licensePlate: [
         '',
-        [Validators.required, Validators.pattern(/^[0-9]{2}[A-Z]{3}[0-9]{3}$/)],
+        [
+          Validators.required,
+          Validators.pattern(/^[0-9]{2}[A-Z]{1}[0-9A-Z]{1,4}[0-9]{1,2}$/),
+        ],
       ],
     });
   }
@@ -127,10 +130,10 @@ export class ServiceComponent implements OnInit {
       );
       return;
     }
-    if (this.licensePlateForm.valid == false) {
+    if (service.name === 'Gửi xe máy' && this.licensePlateForm.valid == false) {
       Swal.fire(
         'Có lỗi',
-        'Vui lòng nhập đúng định dạng biển số xe bắt đầu bằng 2 chữ số, tiếp theo là 3 chữ cái, cuối cùng là 3 chữ số. Ví dụ (12ABC223)',
+        'Vui lòng nhập đúng định dạng. Ví dụ 92AB123',
         'error'
       );
       return;

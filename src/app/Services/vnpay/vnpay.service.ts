@@ -33,4 +33,13 @@ export class VNPayService {
       responseType: 'text', // Yêu cầu response dưới dạng văn bản
     });
   }
+  getPaymentBill(price: number, id: number): Observable<string> {
+    let params = new HttpParams()
+      .set('price', price.toString())
+      .set('billId', id.toString());
+    return this.http.get(this.getFullUrl('api/v1/pay-bill'), {
+      params,
+      responseType: 'text', // Yêu cầu response dưới dạng văn bản
+    });
+  }
 }
