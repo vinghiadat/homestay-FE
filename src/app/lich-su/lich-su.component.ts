@@ -5,14 +5,13 @@ import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
 import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-
 @Component({
-  selector: 'app-su-kien',
-  templateUrl: './su-kien.component.html',
-  styleUrls: ['./su-kien.component.css'],
+  selector: 'app-lich-su',
+  templateUrl: './lich-su.component.html',
+  styleUrls: ['./lich-su.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class SuKienComponent implements OnInit {
+export class LichSuComponent implements OnInit {
   constructor(private spinner: NgxSpinnerService,private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router: Router,private route: ActivatedRoute){}
   ngOnInit(): void {
     this.getSuKien();

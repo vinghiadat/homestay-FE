@@ -13,9 +13,10 @@
       <nav id="nav-menu-container">
         <ul class="nav-menu">
           <li [class.menu-active]="isRouteActive('/trangchu')"><a routerLink="/trangchu">Trang chủ</a></li>
-  <li [class.menu-active]="isRouteActive('/nhatochuc')"><a routerLink="/nhatochuc">Nhà tổ chức</a></li>
-  <li [class.menu-active]="isRouteActive('/sukien')"><a routerLink="/sukien">Sự kiện</a></li>
-  <li [class.menu-active]="isRouteActive('/dangnhap')"><a routerLink="/dangnhap">Đăng nhập</a></li>
+          <li [class.menu-active]="isRouteActive('/nhatochuc')"><a routerLink="/nhatochuc">Nhà tổ chức</a></li>
+          <li [class.menu-active]="isRouteActive('/sukien')"><a routerLink="/sukien">Sự kiện</a></li>
+          <li [class.menu-active]="isRouteActive('/lichsu')"><a routerLink="/lichsu">Lịch sử tham gia</a></li>
+          <li [class.menu-active]="isRouteActive('/dangnhap')"><a *ngIf="!token" routerLink="/dangnhap">Đăng nhập</a><a *ngIf="token" (click)="dangXuat()">Đăng xuất</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>

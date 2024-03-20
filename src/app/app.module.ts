@@ -12,9 +12,11 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { NhaToChucComponent } from './nha-to-chuc/nha-to-chuc.component';
-import { RegisterComponent } from './register/register.component';
 import { SuKienComponent } from './su-kien/su-kien.component';
 import { TrangChuComponent } from './trang-chu/trang-chu.component';
+import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
+import { DatePipe } from '@angular/common';
+import { LichSuComponent } from './lich-su/lich-su.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,9 +25,10 @@ import { TrangChuComponent } from './trang-chu/trang-chu.component';
     FooterComponent,
     LoginComponent,
     NhaToChucComponent,
-    RegisterComponent,
     SuKienComponent,
-    TrangChuComponent
+    TrangChuComponent,
+    ChiTietSuKienComponent,
+    LichSuComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { TrangChuComponent } from './trang-chu/trang-chu.component';
     BrowserAnimationsModule,
     NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

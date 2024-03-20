@@ -3,17 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { TrangChuComponent } from './trang-chu/trang-chu.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { NhaToChucComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { SuKienComponent } from './su-kien/su-kien.component';
+import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
+import { LichSuComponent } from './lich-su/lich-su.component';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
-    {path: 'trangchu',component: TrangChuComponent},
-    {path: 'dangnhap',component: LoginComponent},
-    {path: 'dangky',component: RegisterComponent},
-    {path: 'nhatochuc',component: NhaToChucComponent},
-    {path: 'sukien',component: SuKienComponent},
+    { path: '', redirectTo: '/trangchu', pathMatch: 'full' },
+    { path: 'trangchu',component: TrangChuComponent},
+    { path: 'dangnhap',component: LoginComponent},
+    { path: 'nhatochuc',component: NhaToChucComponent},
+    { path: 'sukien',component: SuKienComponent},
+    { path: 'chitietsukien/:id',component: ChiTietSuKienComponent},
+    { path: 'lichsu',component: LichSuComponent},
     { path: '**', component: NotFoundComponent },
 ];
 

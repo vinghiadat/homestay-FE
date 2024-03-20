@@ -27,4 +27,24 @@ export class SuKienService {
       this.getFullUrl(`api/v1/event/by-organizer?organizerId=${organizerId}`)
     );
   }
+  getEventsByStatus(status: string): Observable<SuKien[]> {
+    return this.http.get<SuKien[]>(
+      this.getFullUrl(`api/v1/event/status?status=${status}`)
+    );
+  }
+  getEventsByStatusAndOrganizerIdAndName(eventStatus: string | null, eventName?: string | null, organizerId?: number | string): Observable<SuKien[]> {
+    return this.http.get<SuKien[]>(
+      this.getFullUrl(`api/v1/event/filter?eventStatus=${eventStatus}&eventName=${eventName}&organizerId=${organizerId}`)
+    );
+  }
+  getEventById(eventId: number): Observable<SuKien> {
+    return this.http.get<SuKien>(
+      this.getFullUrl(`api/v1/event/${eventId}`)
+    );
+  }
+  getTop5SuKienByOrganizerIdExcludingEventId(organizerId: number| string, eventId: number|string): Observable<SuKien[]> {
+    return this.http.get<SuKien[]>(
+      this.getFullUrl(`api/v1/event/by-organizer-excluding?organizerId=${organizerId}&eventId=${eventId}`)
+    );
+  }
 }
