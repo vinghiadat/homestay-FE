@@ -7,6 +7,7 @@ import { NhaToChucComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { SuKienComponent } from './su-kien/su-kien.component';
 import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
 import { LichSuComponent } from './lich-su/lich-su.component';
+import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'sukien',component: SuKienComponent},
     { path: 'chitietsukien/:id',component: ChiTietSuKienComponent},
     { path: 'lichsu',component: LichSuComponent},
+    { path: 'trangchu-admin',component: TrangChuAdminComponent},
     { path: '**', component: NotFoundComponent },
 ];
 

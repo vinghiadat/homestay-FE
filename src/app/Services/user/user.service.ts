@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Registration } from 'src/app/Models/registration/registration';
 import { User } from 'src/app/Models/user/user';
 import { AppConfig } from 'src/app/config/AppConfig';
 
@@ -29,4 +30,8 @@ export class UserService {
   getInfoByUsername(username: string):Observable<User> {
     return this.http.get<User> (this.getFullUrl(`api/v1/user/${username}`));
   } 
+  doiMatKhau(changePassword: any,username: string): Observable<any> {
+    return this.http.put<any>(this.getFullUrl(`api/v1/user/change-password/${username}`),changePassword);
+  }
+  
 }

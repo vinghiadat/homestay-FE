@@ -6,6 +6,101 @@
     <p style="color: white" > Loading... </p>
   </ngx-spinner>
 <main id="main" style="margin: 130px" >
+  <!-- Start profile -->
+  <section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row">
+        <div class="col">
+          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item active" aria-current="page">Thông tin cá nhân</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+  
+      <div class="row" >
+        <div class="col-lg-4">
+          <div class="card mb-4">
+            <div class="card-body text-center">
+              <img src="../../assets/images/istockphoto-1300845620-612x612 (1).jpg" alt="avatar"
+                class="rounded-circle img-fluid" style="width: 150px;">
+              <h5 class="my-3" *ngIf="user">{{user.fullname}}</h5>
+              <p class="text-muted mb-1">Khách hàng</p>
+              <p class="text-muted mb-4"></p>
+              <div class="d-flex justify-content-center mb-2">
+                <button type="button" class="btn btn-primary login">Đổi mật khẩu</button>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-lg-8">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Tài khoản</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0" *ngIf="user">{{user.username}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Email</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0" *ngIf="user">{{user.email}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">SĐT</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0" *ngIf="user">{{user.phoneNumber}}</p>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Địa chỉ</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0" *ngIf="user">{{user.address}}</p>
+                </div>
+              </div><hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Trạng thái tài khoản</p>
+                </div>
+                <div class="col-sm-9" *ngIf="user">
+                  <p class="text-muted mb-0" *ngIf="user.status; else noActive">Còn hoạt động</p>
+                  <ng-template #noActive>
+                    <p class="text-muted mb-0" >Đã bị khóa</p>
+                  </ng-template>
+                </div>
+              </div>
+              <hr>
+              <div class="row" *ngIf="user && !user.status">
+                <div class="col-sm-3">
+                  <p class="mb-0">Lý do khóa tài khoản</p>
+                </div>
+                <div class="col-sm-9" >
+                  <p class="text-muted mb-0" >Đăng ký sự kiện nhưng không tham dự</p>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </section>  
+  <!-- End profile-->
   <div>
     <div class="css-rf24tk">
       <div class="css-x1k8pn">
@@ -151,26 +246,7 @@
                   </div>
                 </div>
                 <p class="css-6qpo60">
-                  <span>
-                    <a
-                      data-testid="TekoLink" 
-                      class="css-1f61m89"
-                      style="color: #f82249; cursor: pointer;"
-                      (click)="navigateToSuKien()"
-                      [ngStyle]="{'color': organizerId != '' ? '#f82249' : '#494D5F', 'font-weight': organizerId == '' ? 'bold' : 'normal', 'cursor': 'pointer'}"
-                      >Tất cả</a
-                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
-                  <span *ngFor="let n of nhaToChuc">
-                    <a
-                      data-testid="TekoLink" (click)="navigateToSuKien(n.id)"
-                      class="css-1f61m89"
-                      
-                      [ngStyle]="{'color': n.id != organizerId ? '#f82249' : '#494D5F', 'font-weight': n.id == organizerId ? 'bold' : 'normal', 'cursor': 'pointer'}"
-                      
-                      >{{n.organizerName}}</a
-                    >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  </span>
+                  
                   
                 </p>
               </div>
@@ -184,7 +260,7 @@
         >
           <div class="teko-row teko-row-start teko-row-baseline css-17jbfbn">
             <h1 class="css-7nrxrf">
-              Các sự kiện bạn đã đăng ký
+              Lịch sử tham dự
             </h1>
             <div type="title" color="textSecondary" class="css-18xfrv">
               ({{suKien.length}} sự kiện)
@@ -344,6 +420,54 @@
       </div>
     </div>
   </div>
+  <div class="containerx">
+    <div class="form">
+        <span id="closex" title="Close form" (click)="cancel()">&times;</span>
+        <form class="form-login" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+            <!-- <div class="image"> -->
+                <!-- <img src="/thuc-hanh/images/fade-xuka-avatar.jpg" alt="xuka" /> -->
+            <!-- </div> -->
+            <div class="div">
+              <label for="input1">Mật khẩu cũ</label>
+              <input class="input" formControlName="oldPassword" id="input1" type="password" placeholder="Nhập mật khẩu cũ" />
+              <div *ngIf="submitted">
+                <small class="text-danger" *ngIf="changePasswordForm.controls['oldPassword'].errors && changePasswordForm.controls['oldPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
+                <small class="text-danger" *ngIf="errorMessage">Mật khẩu cũ không đúng</small>
+              </div>
+          </div>
+            <div class="div">
+                <label for="input2">Mật khẩu mới</label>
+                <input class="input" formControlName="newPassword" id="input2" type="password" placeholder="Nhập mật khẩu" />
+                <div *ngIf="submitted">
+                  <small class="text-danger" *ngIf="changePasswordForm.controls['newPassword'].errors && changePasswordForm.controls['newPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
+
+                </div>
+            </div>
+            <div class="div">
+              <label for="input3">Nhập lại mật khẩu mới</label>
+              <input class="input" formControlName="confirmPassword" id="input3" type="password" placeholder="Nhập mật khẩu lần 2" />
+              <div *ngIf="submitted">
+                <small class="text-danger" *ngIf="changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].errors['required']">Xác nhận lại mật khẩu lần 2</small>
+                <small class="text-danger" *ngIf="!changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].value != changePasswordForm.controls['newPassword'].value">Mật khẩu nhập lại chưa giống mật khẩu trên</small>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div *ngIf="isCheckSuccess" class="text-center">
+                <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
+              </div>
+                <button type="submit" class="button">Lưu</button>
+            </div>
+            <!-- <div class="check">
+                <input type="checkbox" checked="checked" /> <span>Remember me</span>
+            </div> -->
+            <div class="foot">
+                <button type="button" class="cancelbtn" (click)="cancel()">Hủy bỏ</button>
+                <!-- <span>Forgot <a href="#">password?</a></span> -->
+            </div>
+        </form>
+    </div>
+  </div>
 </main>
 
 <app-footer></app-footer>
+

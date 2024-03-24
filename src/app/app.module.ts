@@ -17,6 +17,7 @@ import { TrangChuComponent } from './trang-chu/trang-chu.component';
 import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
 import { DatePipe } from '@angular/common';
 import { LichSuComponent } from './lich-su/lich-su.component';
+import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import { LichSuComponent } from './lich-su/lich-su.component';
     SuKienComponent,
     TrangChuComponent,
     ChiTietSuKienComponent,
-    LichSuComponent
+    LichSuComponent,
+    TrangChuAdminComponent
   ],
   imports: [
     BrowserModule,

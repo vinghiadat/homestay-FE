@@ -84,7 +84,7 @@ export class LoginComponent implements OnInit {
   }
   dangKy() {
     this.submitted = true;
-    if(this.registerForm.valid == true) {
+    if(this.registerForm.valid == true && this.registerForm.value.password == this.registerForm.value.confirmPassword) {
       this.userService.taoTaiKhoan(this.registerForm.value).subscribe({
         next:(response: any) => {
             this.cancel();
@@ -110,7 +110,15 @@ export class LoginComponent implements OnInit {
                         this.router.navigate(['/trangchu']);
                         this.submitDangNhap = false;
                     } else {
-                        this.errorMessage = 'Đăng nhập thất bại!';
+                        if(element == "ADMIN") {
+                            localStorage.setItem('tokenAdmin',response.token);
+                            localStorage.setItem('usernameAdmin',JSON.stringify(this.loginForm.value.username));
+                            this.router.navigate(['/trangchu-admin']);
+                            this.submitDangNhap = false
+                        } else {
+                            this.errorMessage = 'Đăng nhập thất bại!';
+                        }
+                        
                     }
                 });
             },

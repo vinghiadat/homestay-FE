@@ -9,5 +9,6 @@ export class User {
         public phoneNumber: string,
         public email: string,
         public roleNames: string[], // Thêm trường này để chứa danh sách vai trò
+        public status: Boolean
     ) {}
 }

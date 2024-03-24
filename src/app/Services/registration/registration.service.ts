@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Registration } from 'src/app/Models/registration/registration';
+import { SuKien } from 'src/app/Models/sukien/su-kien';
 import { AppConfig } from 'src/app/config/AppConfig';
 
 @Injectable({
@@ -24,4 +25,12 @@ export class RegistrationService {
   checkExist(userId: number, eventId: number) : Observable<Boolean> {
     return this.http.get<Boolean>(this.getFullUrl(`api/v1/registration/check-exist?userId=${userId}&eventId=${eventId}`))
   };
+  getEventsByUserIdAndStatusAndOrganizerIdAndName(userId: number | string,eventStatus: string | null, eventName?: string | null, organizerId?: number | string): Observable<SuKien[]> {
+    return this.http.get<SuKien[]>(
+      this.getFullUrl(`api/v1/registration/user/${userId}?eventStatus=${eventStatus}&eventName=${eventName}&organizerId=${organizerId}`)
+    );
+  }
+  getRegistrationByUserIdAndEventId(userId: number,eventId:number) :Observable<Registration> {
+    return this.http.get<Registration>(this.getFullUrl(`api/v1/registration/user/${userId}/event/${eventId}`));
+  }
 }

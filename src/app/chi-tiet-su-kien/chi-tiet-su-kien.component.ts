@@ -8,6 +8,8 @@ import { DatePipe } from '@angular/common';
 import { UserService } from '../Services/user/user.service';
 import { User } from '../Models/user/user';
 import { RegistrationService } from '../Services/registration/registration.service';
+import { subDays } from 'date-fns';
+import { Registration } from '../Models/registration/registration';
 
 @Component({
   selector: 'app-chi-tiet-su-kien',
@@ -24,6 +26,8 @@ export class ChiTietSuKienComponent implements OnInit {
   eventDays: string[] = [];
   relatedEvents: SuKien[] = [];
   thamGiaChua: Boolean = false;
+  hanDangKy!: Date;
+  registration: Registration | null = null;
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -36,9 +40,10 @@ export class ChiTietSuKienComponent implements OnInit {
     this.checkExistByUserIdAndEventId();
   }
   checkExistByUserIdAndEventId() {
-    this.userService.getInfoByUsername(localStorage.getItem('username')!).subscribe({
+    this.userService.getInfoByUsername(JSON.parse(localStorage.getItem('username')!)).subscribe({
       next:(response: User) => {
         this.userId = response.id;
+
         this.registrationService.checkExist(response.id,this.eventId).subscribe({
           next:(response: Boolean) => {
             this.thamGiaChua = response;
@@ -47,9 +52,20 @@ export class ChiTietSuKienComponent implements OnInit {
             console.log(error);
           }
         })
+        this.getRegistrationByUserIdAndEventId();
       },
       error: (error) => {
         console.log(error);
+      }
+    })
+  }
+  getRegistrationByUserIdAndEventId()  {
+    this.registrationService.getRegistrationByUserIdAndEventId(this.userId,this.eventId).subscribe({
+      next: (response: Registration) => {
+        this.registration = response;
+      },
+      error: (error) => {
+
       }
     })
   }
@@ -88,6 +104,7 @@ export class ChiTietSuKienComponent implements OnInit {
         
         const startDate = new Date(this.event.startDateTime);
         const endDate = new Date(this.event.endDateTime);
+        this.hanDangKy = subDays(startDate, 1);
         this.getTop5SuKienByOrganizerIdExcludingEventId(response.organizer.id,this.eventId);
       // Lặp qua từng ngày và thêm vào mảng nếu chưa tồn tại
       if(startDate && endDate) {

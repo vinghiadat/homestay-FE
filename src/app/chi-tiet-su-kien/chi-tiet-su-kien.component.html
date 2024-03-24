@@ -1,5 +1,6 @@
 <app-header></app-header>
 <main id="main" style="margin: 130px;" *ngIf="event; else noEvent">
+    
     <div>
         <script
             type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Máy triệt lông lạnh cá nhân Halio IPL Cooling Hair Removal Device","image":"https://lh3.googleusercontent.com/pOj-qIpNot1wY3kfKfzX_wjrGImtHDG31ZFBZ0GZnsILHxMrMyydS4oxD1-B8bqs3xcGmOSg4rQNDxWGHvtFFWPtI1ytXGM","brand":{"@type":"Brand","name":"Halio"},"offers":{"@type":"Offer","price":"2790000","url":"https://phongvu.vn/may-triet-long-lanh-ca-nhan-halio-ipl-cooling-hair-removal-device--s220801566","priceCurrency":"VND"},"url":"https://phongvu.vn/may-triet-long-lanh-ca-nhan-halio-ipl-cooling-hair-removal-device--s220801566","description":"Mua Máy triệt lông lạnh cá nhân Halio IPL Cooling Hair Removal Device Chính hãng - Giá rẻ - Giảm giá sốc khi mua online - Giao hàng tận nơi trên toàn quốc","sku":"220801566","category":"Gia dụng","additionalProperty":[{"@type":"PropertyValue","name":"Thương hiệu","value":"Halio"},{"@type":"PropertyValue","name":"Bảo hành","value":"12 tháng"},{"@type":"PropertyValue","name":"Công suất","value":"48W"},{"@type":"PropertyValue","name":"Tính năng","value":"- Triệt lông vĩnh viễn tại nhà với công nghệ IPL tiên tiến hiệu quả nhanh, lâu dài <br>- Khôi phục đàn hồi cho da và trẻ hóa làn da căng tràn sức sống <br>- Thiết kế nhỏ gọn, dễ dàng cầm nắm và di chuyển khi sử dụng trên bề mặt da"},{"@type":"PropertyValue","name":"Kích thước","value":"15.00 x 8.00 x 4.50 cm"},{"@type":"PropertyValue","name":"Khối lượng","value":"300 g"}]}</script>
@@ -61,8 +62,9 @@
                                             <div type="caption" color="textSecondary" class="css-1f5a6jh"
                                                 style="font-size: 14px; margin-top: -4px;"> Địa chỉ: {{event.organizer.address}}<br /><a target="_self" class="css-cbrxda"
                                                     href="/halio-brand.halio"><span
-                                                        class="css-n67qkj">{{event.startDateTime| date: 'hh:mm dd/MM/yyyy'}} - {{event.endDateTime| date: 'hh:mm dd/MM/yyyy'}} </span></a><span
-                                                    class="css-1qgvt7n"></span>
+                                                        class="css-n67qkj">{{event.startDateTime| date: 'hh:mm dd/MM/yyyy'}} - {{event.endDateTime| date: 'hh:mm dd/MM/yyyy'}} </span></a>
+                                                        <div style="font-weight: bold;"
+                                                    class="css-1qgvt7n" *ngIf="hanDangKy">Hạn đăng ký đến hết ngày: {{hanDangKy | date: 'dd/MM/yyyy'}}</div>
                                                 
                                                 </div>
                                         </div>
@@ -100,11 +102,35 @@
                                             color: #fff;
                                             font-weight: bold; pointer-events: none;"
                                                 class="css-1nhnj3v" type="button">
-                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ ĐĂNG KÝ SỰ KIỆN NÀY RỒI</div><span style="margin-left: 0px;">
+                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ ĐĂNG KÝ SỰ KIỆN NÀY</div><span style="margin-left: 0px;">
                                                     <div class="css-157jl91"></div>
                                                 </span>
                                             </button></div>
+                                            <!-- <div data-content-region-name="descriptionDetail" data-track-content="true" 
+                                            data-content-name="buyNow" data-content-target="cart"
+                                            data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
+                                            class="css-yp9swi" ><button height="2.5rem" color="white" (click)="dangKySuKien()"
+                                                class="att-detail-page-buy-now-button css-f7nwna" type="button" style="background-color: black;">
+                                                <div type="subtitle" class="css-fdtrln">BẠN KHÔNG THAM GIA ĐÚNG HẸN
+                                                    </div><span style="margin-left: 0px;">
+                                                    <div class="css-157jl91"></div>
+                                                </span>
+                                            </button></div> -->
                                         </ng-template>
+                                        
+                                    </div>
+                                    <div class="css-f7zc9t" *ngIf="registration && registration.status == 0">
+                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  
+                                            data-content-name="addToCart" data-content-target="productDetail"
+                                            data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
+                                            class="css-yp9swi"><button height="2.5rem" color="primary500"  style="    background: black;
+                                            color: #fff;
+                                            font-weight: bold; pointer-events: none;"
+                                                class="css-1nhnj3v" type="button">
+                                                <div type="subtitle" class="css-fdtrln" >BẠN KHÔNG THAM DỰ ĐÚNG HẸN !<br />TÀI KHOẢN BẠN SẼ BỊ KHÓA</div><span style="margin-left: 0px;">
+                                                    <div class="css-157jl91"></div>
+                                                </span>
+                                            </button></div>
                                         
                                     </div>
                                     <div class="css-9eazwe">
@@ -168,6 +194,17 @@
                                                     <p>Thương hiệu nhà tổ chức chất lượng 
                                                         100%&nbsp;</p>
                                                 </div>
+                                                
+                                            </div>
+                                            <div class="css-15eranj">
+                                                <div height="24" width="24" class="css-1a6hohg"><img
+                                                        src="../../assets/images/warning.png"
+                                                        loading="lazy" decoding="async"
+                                                        style="width: 100%; height: 24px;"></div>
+                                                <div class="att-policy-content-0 css-9yb8e7">
+                                                    <p>Đăng ký mà không tham dự: Tài khoản bạn sẽ bị <span style="font-weight: bold;">KHÓA</span>&nbsp;</p>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                         <div direction="row" class="css-1ata8it"></div>
