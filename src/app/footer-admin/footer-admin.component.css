@@ -287,23 +287,3 @@
     background: var(--dark);
     border-color: var(--primary);
 }
-.text-primary {
-    /* color: #007bff!important; */
-    color: #EB1616;
-}
-.bg-seconday {
-    background-color: #191C24 !important;
-}
-.container-fluid {
-    
-    /* margin: 0; */
-    font-family: "Open Sans",sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #6C7293;
-    background-color: #000;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-
-}

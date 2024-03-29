@@ -18,6 +18,9 @@ import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.comp
 import { DatePipe } from '@angular/common';
 import { LichSuComponent } from './lich-su/lich-su.component';
 import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.component';
+import { HeaderAdminComponent } from './header-admin/header-admin.component';
+import { FooterAdminComponent } from './footer-admin/footer-admin.component';
+import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,10 @@ import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.compon
     TrangChuComponent,
     ChiTietSuKienComponent,
     LichSuComponent,
-    TrangChuAdminComponent
+    TrangChuAdminComponent,
+    HeaderAdminComponent,
+    FooterAdminComponent,
+    NavbarAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./trang-chu-admin.component.css']
 })
 export class TrangChuAdminComponent {
+  isSidebarOpen: boolean = false;
 
+  constructor() { }
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+    console.log(this.isSidebarOpen);
+  }
 }
