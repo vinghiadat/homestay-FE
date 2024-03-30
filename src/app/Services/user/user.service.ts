@@ -33,5 +33,8 @@ export class UserService {
   doiMatKhau(changePassword: any,username: string): Observable<any> {
     return this.http.put<any>(this.getFullUrl(`api/v1/user/change-password/${username}`),changePassword);
   }
+  getAllUsers(username: string | null): Observable<User[]> {
+    return this.http.get<User[]>(this.getFullUrl(`api/v1/user?username=${username}`));
+  }
   
 }

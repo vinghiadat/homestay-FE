@@ -112,13 +112,13 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-sm-12 col-xl-8 mb-3">
+                <div class="col-sm-12 col-xl-9 mb-3">
                     <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Danh sách người dùng (10 tài khoản người dùng)</h6>
                             <!-- <a href="">Show All</a> -->
                         </div>
-                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tài khoản hoặc tên...">
+                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tài khoản hoặc tên..." [(ngModel)]="searchUsername" (input)="seachUserByUsername()">
                         <div class="table-responsive">
                             <table class="table text-start align-middle table-bordered table-hover mb-0">
                                 <thead>
@@ -134,18 +134,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let u of listUsers;index as i">
                                         
-                                        <td>01 Jan 2045</td>
-                                        <td>INV-0123</td>
-                                        <td>Jhon Doe</td>
-                                        <td>$123</td>
-                                        <td>Paid</td>
-                                        <td>Paid</td>
-                                        <td>Paid</td>
+                                        <td>{{i+1}}</td>
+                                        <td>{{u.username}}</td>
+                                        <td>{{u.fullname}}</td>
+                                        <td>{{u.address}}</td>
+                                        <td>{{u.phoneNumber}}</td>
+                                        <td>{{u.email}}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary mr-1"  sty>Xóa</a>
-                                            <a class="btn btn-sm btn-light"  sty>Sửa</a>
+                                            <span *ngFor="let roleName of u.roles;index as i">{{roleName.name}}<span *ngIf="i+1 <u.roles.length"> ,</span> </span>
+                                        </td>
+                                        <td>
+                                            <div><a class="btn btn-sm btn-primary"  sty>Xóa</a></div>
+                                            <div><a class="btn btn-sm btn-light"  sty>Sửa</a></div>
+                                            
                                         </td>
                                     </tr>
                                 </tbody>
@@ -153,7 +156,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-xl-4 mb-3">
+                <div class="col-sm-12 col-xl-3 mb-3">
                     <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">Danh sách quyền hạn (10 vai trò)</h6>

@@ -1,3 +1,5 @@
+import { Role } from "../role/role";
+
 export class User {
     constructor(
         public id: number,
@@ -8,7 +10,7 @@ export class User {
         public address: string,
         public phoneNumber: string,
         public email: string,
-        public roleNames: string[], // Thêm trường này để chứa danh sách vai trò
+        public roles: Role[], // Thêm trường này để chứa danh sách vai trò
         public status: Boolean
     ) {}
 }
