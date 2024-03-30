@@ -13,5 +13,6 @@ export class NavbarAdminComponent {
 
   onToggleSidebar() {
     this.toggleSidebar.emit();
+    console.log(11);
   }
 }

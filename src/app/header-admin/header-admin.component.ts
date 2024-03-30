@@ -9,5 +9,15 @@ import { Component, Input, ViewEncapsulation } from '@angular/core';
 export class HeaderAdminComponent {
   @Input() isSidebarOpen: boolean = false;
 
-  constructor() { }
+  isDropdownOpen: boolean = false;
+  currentDropdown: string = '';
+  constructor() {}
+  toggleDropdown(dropdown: string): void {
+    if (this.currentDropdown === dropdown) {
+      this.isDropdownOpen = !this.isDropdownOpen;
+    } else {
+      this.currentDropdown = dropdown;
+      this.isDropdownOpen = true;
+    }
+  }
 }

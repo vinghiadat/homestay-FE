@@ -1,0 +1,97 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Thông tin cá nhân</h6>
+                        <form>
+                            <div class="mb-3">
+                                <label for="account" class="form-label">Tài khoản</label>
+                                <input type="text" class="form-control" id="account"  disabled="disabled"
+                                    aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="fullname" class="form-label"  >Họ tên</label>
+                                <input type="text" class="form-control" id="fullname"  disabled="disabled">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label"  >Số điện thoại</label>
+                                <input type="text" class="form-control" id="phoneNumber"  disabled="disabled">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label" >Email</label>
+                                <input type="text" class="form-control" id="email"  disabled="disabled">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label" >Địa chỉ</label>
+                                <input type="password" class="form-control" id="address"   disabled="disabled">
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Quyền</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Đổi mật khẩu</h6>
+                        <form  [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+                            <div class="mb-3">
+                                <label for="oldPassword" class="form-label" >Mật khẩu cũ</label>
+                                <input type="password" class="form-control" id="oldPassword" formControlName="oldPassword">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="changePasswordForm.controls['oldPassword'].errors && changePasswordForm.controls['oldPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
+                                    <small class="text-danger" *ngIf="errorMessage">Mật khẩu cũ không đúng</small>
+                                  </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword"  class="form-label"  >Mật khẩu mới</label>
+                                <input type="password" class="form-control" id="newPassword" formControlName="newPassword">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="changePasswordForm.controls['newPassword'].errors && changePasswordForm.controls['newPassword'].errors['required']">Vui lòng nhập mật khẩu cũ</small>
+                  
+                                  </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label"  >Xác thực lại mật khẩu mới</label>
+                                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword" >
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].errors['required']">Xác nhận lại mật khẩu lần 2</small>
+                                    <small class="text-danger" *ngIf="!changePasswordForm.controls['confirmPassword'].errors && changePasswordForm.controls['confirmPassword'].value != changePasswordForm.controls['newPassword'].value">Mật khẩu nhập lại chưa giống mật khẩu trên</small>
+                                </div>
+                            </div>
+                            <div *ngIf="isCheckSuccess" class="text-center mb-2">
+                                <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
+                            </div>
+                            <button type="reset" class="btn btn-warning mr-3" (click)="cancel()">Làm mới</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form End -->
+
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>

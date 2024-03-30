@@ -1,0 +1,406 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+
+        <!-- Form Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Thêm người dùng</h6>
+                        <form [formGroup]="registerForm" (ngSubmit)="dangKy()">
+                            <div class="mb-3">
+                                <label for="account" class="form-label">Tài khoản</label>
+                                <input type="text" class="form-control" id="account" formControlName="username" 
+                                    aria-describedby="emailHelp">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['username'].errors && registerForm.controls['username'].errors['required']">Tài khoản không được để trống</small>
+                                    <small class="text-danger" *ngIf="!registerForm.controls['username'].errors && alreadyExistAccount">{{alreadyExistAccount}}</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label" >Mật khẩu</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].errors['required']">Mật khẩu không được để trống</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword2" class="form-label"  >Xác thực mật khẩu</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" formControlName="confirmPassword">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['confirmPassword'].errors && registerForm.controls['confirmPassword'].errors['required']">Xác nhận lại mật khẩu lần 2</small>
+                                    <small class="text-danger" *ngIf="!registerForm.controls['confirmPassword'].errors && registerForm.controls['confirmPassword'].value != registerForm.controls['password'].value">Mật khẩu nhập lại chưa giống mật khẩu trên</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="fullname" class="form-label"  >Họ tên</label>
+                                <input type="text" class="form-control" id="fullname" formControlName="fullname">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['fullname'].errors && registerForm.controls['fullname'].errors['required']">Họ tên không được để trống</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label"  >Số điện thoại</label>
+                                <input type="text" class="form-control" id="phoneNumber" formControlName="phoneNumber">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['phoneNumber'].errors && registerForm.controls['phoneNumber'].errors['required']">Tài khoản không được để trống</small>
+                                  </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label" >Email</label>
+                                <input type="text" class="form-control" id="email" formControlName="email">
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].errors['required']">Email không được để trống</small>
+                                    <small class="text-danger" *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].errors['email']">Email cần nhập đúng định dạng</small>
+                                  </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label" >Địa chỉ</label>
+                                <input type="password" class="form-control" id="address"  formControlName="address" >
+                                <div *ngIf="submitted">
+                                    <small class="text-danger" *ngIf="registerForm.controls['address'].errors && registerForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="role" class="form-label">Quyền</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" value="2"  (change)="onCheckboxChange($event)">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Default checkbox
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckChecked" value="1" (change)="onCheckboxChange($event)">
+                                    <label class="form-check-label" for="flexCheckChecked">
+                                        Checked checkbox
+                                    </label>
+                                </div>
+                                <div *ngIf="submitted">
+                                    
+                                    <small class="text-danger" *ngIf="registerForm.controls['role'].value.length == 0">Quyền không được để trống</small>
+                                </div>
+                            </div>
+                            <div *ngIf="isCheckSuccess" class="text-center mb-2">
+                                <span class="text-success" style="font-weight: bold;">{{successMessage}}</span>
+                            </div>
+                            <button type="reset" class="btn btn-warning mr-3" (click)="cancel()">Làm mới</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Thêm quyền hạn</h6>
+                        <form [formGroup]="themQuyenHanForm" (ngSubmit)="themQuyenHan()">
+                            <div class="row mb-3">
+                                <label for="roleName" class="form-label"  >Vai trò</label>
+                                <input type="text" class="form-control" id="roleName" formControlName="roleName"/>
+                                <div *ngIf="submittedThemQuyenHan">
+                                    <small class="text-danger" *ngIf="themQuyenHanForm.controls['roleName'].errors && themQuyenHanForm.controls['roleName'].errors['required']">Vai trò không được để trống</small>
+                                </div>
+                            </div>
+                            <button type="reset" class="btn btn-warning mr-3" (click)="cancelRole()">Làm mới</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-8 mb-3">
+                    <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Danh sách người dùng (10 tài khoản người dùng)</h6>
+                            <!-- <a href="">Show All</a> -->
+                        </div>
+                        <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tài khoản hoặc tên...">
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-white">
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Tài khoản</th>
+                                        <th scope="col">Họ tên</th>
+                                        <th scope="col">Địa chỉ</th>
+                                        <th scope="col">SĐT</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Vai trò</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        
+                                        <td>01 Jan 2045</td>
+                                        <td>INV-0123</td>
+                                        <td>Jhon Doe</td>
+                                        <td>$123</td>
+                                        <td>Paid</td>
+                                        <td>Paid</td>
+                                        <td>Paid</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary mr-1"  sty>Xóa</a>
+                                            <a class="btn btn-sm btn-light"  sty>Sửa</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-4 mb-3">
+                    <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Danh sách quyền hạn (10 vai trò)</h6>
+                            <!-- <a href="">Show All</a> -->
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-white">
+                                        <th scope="col">Tên vai trò</th>
+                                        <th scope="col">Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        
+                                        <td>INV-0123</td>
+                                        <td><a class="btn btn-sm btn-primary mr-1"  sty>Xóa</a>
+                                            <a class="btn btn-sm btn-light"  sty>Sửa</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Floating Label</h6>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="floatingPassword"
+                                placeholder="Password">
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelect"
+                                aria-label="Floating label select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                            <label for="floatingSelect">Works with selects</label>
+                        </div>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here"
+                                id="floatingTextarea" style="height: 150px;"></textarea>
+                            <label for="floatingTextarea">Comments</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">File Input</h6>
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Default file input example</label>
+                            <input class="form-control bg-dark" type="file" id="formFile">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                            <input class="form-control bg-dark" type="file" id="formFileMultiple" multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formFileSm" class="form-label">Small file input example</label>
+                            <input class="form-control form-control-sm bg-dark" id="formFileSm" type="file">
+                        </div>
+                        <div>
+                            <label for="formFileLg" class="form-label">Large file input example</label>
+                            <input class="form-control form-control-lg bg-dark" id="formFileLg" type="file">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Select</h6>
+                        <select class="form-select form-select-sm mb-3" aria-label=".form-select-sm example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <select class="form-select mb-3" aria-label="Default select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <select class="form-select" multiple aria-label="multiple select example">
+                            <option selected>Open this select menu</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Check, Radio & Switch</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Default checkbox
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                            <label class="form-check-label" for="flexCheckChecked">
+                                Checked checkbox
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <label class="form-check-label" for="inlineCheckbox1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <label class="form-check-label" for="inlineCheckbox2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"
+                                disabled>
+                            <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
+                        </div>
+                        <hr>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Default radio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Default checked radio
+                            </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="option1">
+                            <label class="form-check-label" for="inlineRadio1">1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="option2">
+                            <label class="form-check-label" for="inlineRadio2">2</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3"
+                                value="option3" disabled>
+                            <label class="form-check-label" for="inlineRadio3">3 (disabled)</label>
+                        </div>
+                        <hr>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox
+                                input</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                id="flexSwitchCheckChecked" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox
+                                input</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                id="flexSwitchCheckDisabled" disabled>
+                            <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox
+                                input</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                id="flexSwitchCheckCheckedDisabled" checked disabled>
+                            <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked
+                                switch checkbox input</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Input Group</h6>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Recipient's username"
+                                aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">@example.com</span>
+                        </div>
+                        <label for="basic-url" class="form-label">Your vanity URL</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Username" aria-label="Username">
+                            <span class="input-group-text">@</span>
+                            <input type="text" class="form-control" placeholder="Server" aria-label="Server">
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text">With textarea</span>
+                            <textarea class="form-control" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6 mb-3">
+                    <div class="bg-secondary1 rounded h-100 p-4">
+                        <h6 class="mb-4">Sizing</h6>
+                        <input class="form-control form-control-lg mb-3" type="text" placeholder=".form-control-lg"
+                            aria-label=".form-control-lg example">
+                        <input class="form-control mb-3" type="text" placeholder="Default input"
+                            aria-label="default input example">
+                        <input class="form-control form-control-sm" type="text" placeholder=".form-control-sm"
+                            aria-label=".form-control-sm example">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Form End -->
+
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>

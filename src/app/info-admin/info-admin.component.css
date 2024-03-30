@@ -318,3 +318,93 @@
 .btn-primary:hover {
     background-color:#dc3545;
 }
+.bg-secondary1 {
+    background-color: #191C24 !important;
+}
+h6 {
+    font-size: 1rem;
+    color: #fff;
+    font-weight: bold;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6C7293;
+    background-color: #000;
+    background-clip: padding-box;
+    border: 1px solid #000;
+    appearance: none;
+    border-radius: 5px;
+    transition: border-color 0.15s ease-in-out,box-shadow 0.15s ease-in-out;
+}
+.form-control:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 10px #EB1616; /* Thay đổi giá trị để điều chỉnh hiệu ứng ánh sáng */
+}
+/* form check inbox */
+/* .form-check-input[type="checkbox"] {
+    border-radius: .25em;
+}
+.form-check .form-check-input {
+    float: left;
+    margin-left: -1.5em;
+}
+.form-check-input {
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    vertical-align: top;
+    background-color: #000;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid rgba(0,0,0,0.25);
+    color-adjust: exact;
+}
+.form-check-input:focus {
+    color: #fff !important;
+    background-color: #dc3545 !important;
+    border-color: #dc3545 !important;
+    box-shadow: 0 0 10px #EB1616 !important;
+} */
+
+.form-check-input[type="checkbox"] {
+    border-radius: .25em;
+    appearance: none;
+}
+
+.form-check-input[type="checkbox"]:focus {
+    outline: none; /* Loại bỏ viền xung quanh khi được focus */
+}
+
+.form-check-input[type="checkbox"] {
+    width: 1em;
+    height: 1em;
+    margin-top: .25em;
+    vertical-align: top;
+    background-color: #000; /* Màu nền của checkbox */
+    border: 1px solid rgba(0,0,0,0.25);
+    color-adjust: exact;
+}
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: #dc3545; /* Màu nền của checkbox khi được chọn */
+}
+
+.form-check-input[type="checkbox"]:checked::before {
+    content: "\2713"; /* Ký tự Unicode của dấu check (✓) */
+    display: block;
+    width: 1em;
+    height: 1em;
+    line-height: 1em;
+    text-align: center;
+    color: #fff; /* Màu của dấu check khi checkbox được chọn */
+}
+.btn-primary:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 10px #EB1616; /* Thay đổi giá trị để điều chỉnh hiệu ứng ánh sáng */
+}

@@ -25,7 +25,7 @@
 
 #spinner.show {
     transition: opacity .5s ease-out, visibility 0s linear 0s;
-    visibility: visible;
+    /* visibility: visible; */
     opacity: 1;
 }
 
@@ -293,4 +293,7 @@
 }
 .bg-seconday {
     background-color: #191C24 !important;
+}
+a {
+    cursor: pointer;
 }

@@ -21,6 +21,8 @@ import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.compon
 import { HeaderAdminComponent } from './header-admin/header-admin.component';
 import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
+import { PhanQuyenAdminComponent } from './phan-quyen-admin/phan-quyen-admin.component';
+import { InfoAdminComponent } from './info-admin/info-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,9 @@ import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
     TrangChuAdminComponent,
     HeaderAdminComponent,
     FooterAdminComponent,
-    NavbarAdminComponent
+    NavbarAdminComponent,
+    PhanQuyenAdminComponent,
+    InfoAdminComponent
   ],
   imports: [
     BrowserModule,
