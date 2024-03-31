@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { UserService } from '../Services/user/user.service';
 import { Event, Router } from '@angular/router';
 import { User } from '../Models/user/user';
+import { RoleService } from '../Services/role/role.service';
+import { Role } from '../Models/role/role';
 
 @Component({
   selector: 'app-phan-quyen-admin',
@@ -24,7 +26,10 @@ export class PhanQuyenAdminComponent implements OnInit {
   alreadyExistRole: string = '';
   searchUsername: string = ''; // thanh search chỗ user
   listUsers: User[] = [];
-  constructor(private formBuilder: FormBuilder,private userService: UserService,private router:Router) { 
+  listRoles: Role[] = [];
+  successMessageThemQuyenHan: string = '';
+  errorMessageThemQuyenHan: string = '';
+  constructor(private formBuilder: FormBuilder,private userService: UserService,private router:Router, private roleService: RoleService) { 
     this.registerForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', Validators.required],
@@ -33,17 +38,18 @@ export class PhanQuyenAdminComponent implements OnInit {
         address: ['', Validators.required],
         phoneNumber: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        role: this.formBuilder.array([])
+        roleNames: this.formBuilder.array([])
       });
     this.themQuyenHanForm = this.formBuilder.group({
-        roleName: ['', Validators.required]
+        name: ['', Validators.required]
     });
   }    
   ngOnInit(): void {
     this.getAllUsers();
+    this.getAllRoles();
   }
   onCheckboxChange(e: any) {
-    const checkArray: FormArray = this.registerForm.get('role') as FormArray;
+    const checkArray: FormArray = this.registerForm.get('roleNames') as FormArray;
     if ( e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
     } else {
@@ -59,12 +65,14 @@ export class PhanQuyenAdminComponent implements OnInit {
   }
   dangKy() {
     this.submitted = true;
-    if(this.registerForm.valid == true && this.registerForm.value.password == this.registerForm.value.confirmPassword) {
+    console.log(this.registerForm.value);
+    if(this.registerForm.valid == true && this.registerForm.value.password == this.registerForm.value.confirmPassword && this.registerForm.controls['roleNames'].value.length != 0) {
       this.userService.taoTaiKhoan(this.registerForm.value).subscribe({
         next:(response: any) => {
             this.cancel();
             this.isCheckSuccess = true;
             this.successMessage = response.message;
+            this.getAllUsers();
         },
         error: (error) => {
             this.alreadyExistAccount = error.error.message;
@@ -80,11 +88,37 @@ export class PhanQuyenAdminComponent implements OnInit {
   }
   themQuyenHan() {
     this.submittedThemQuyenHan = true;
-    if(this.themQuyenHanForm.valid == true) {
-      
+    if(this.themQuyenHanForm.valid == true ) {
+      this.roleService.addRole(this.themQuyenHanForm.value, JSON.parse(localStorage.getItem('userId')!)).subscribe({
+        next: (response: any) => {
+          this.cancelRole();
+          this.successMessageThemQuyenHan = 'Thêm quyền hạn thành công';
+          this.getAllRoles();
+        },
+        error: (error) => {
+          this.cancelRole();
+          this.errorMessageThemQuyenHan = error.error.message;
+        }
+      })
     }
   }
+  xoaVaiTro(id: number) {
+    if(confirm("Bạn có chắc chắn xóa vai trò này ?")) {
+      this.roleService.deleteById(id,JSON.parse(localStorage.getItem('userId')!)).subscribe({
+        next: (response: void) => {
+          alert('Xóa vai trò thành công');
+          this.getAllRoles();
+        },
+        error: (error) => {
+          alert(error.error.message);
+        } 
+      })
+    }
+    
+  }
   cancelRole() {
+    this.successMessageThemQuyenHan = '';
+    this.errorMessageThemQuyenHan = '';
     this.themQuyenHanForm.reset();
     this.submittedThemQuyenHan = false;
     this.isCheckSuccessThemQuyenHan = false;
@@ -101,6 +135,16 @@ export class PhanQuyenAdminComponent implements OnInit {
         console.log(response);
         this.listUsers = response;
         console.log(this.listUsers);
+      },
+      error: (error) => {
+
+      }
+    })
+  }
+  getAllRoles() {
+    this.roleService.getAllRoles().subscribe({
+      next:(response: Role[]) => {
+        this.listRoles = response;
       },
       error: (error) => {
 

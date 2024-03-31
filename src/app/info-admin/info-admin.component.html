@@ -15,32 +15,37 @@
                 <div class="col-sm-12 col-xl-6 mb-3">
                     <div class="bg-secondary1 rounded h-100 p-4">
                         <h6 class="mb-4">Thông tin cá nhân</h6>
-                        <form>
+                        <form *ngIf="user">
                             <div class="mb-3">
                                 <label for="account" class="form-label">Tài khoản</label>
-                                <input type="text" class="form-control" id="account"  disabled="disabled"
+                                <input type="text" class="form-control" id="account" [value]="user.username"  disabled="disabled"
                                     aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="fullname" class="form-label"  >Họ tên</label>
-                                <input type="text" class="form-control" id="fullname"  disabled="disabled">
+                                <input type="text" class="form-control" id="fullname" [value]="user.fullname" disabled="disabled">
                             </div>
                             <div class="mb-3">
                                 <label for="phoneNumber" class="form-label"  >Số điện thoại</label>
-                                <input type="text" class="form-control" id="phoneNumber"  disabled="disabled">
+                                <input type="text" class="form-control" id="phoneNumber" [value]="user.phoneNumber"  disabled="disabled">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label" >Email</label>
-                                <input type="text" class="form-control" id="email"  disabled="disabled">
+                                <input type="text" class="form-control" id="email" [value]="user.email" disabled="disabled">
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label" >Địa chỉ</label>
-                                <input type="password" class="form-control" id="address"   disabled="disabled">
+                                <input type="text" class="form-control" id="address" [value]="user.address"   disabled="disabled">
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Quyền</label>
+                                <div class="form-check" *ngFor="let r of user.roles;index as i">
+                                    <label class="form-check-label" for="flexCheckDefault{{i}}">
+                                        {{r.name}}<span *ngIf="i+1 <user.roles.length"> ,</span>
+                                    </label>
+                                </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Sửa thông tin</button>
+                            <!-- <button type="submit" class="btn btn-primary">Sửa thông tin</button> -->
                         </form>
                     </div>
                 </div>

@@ -17,7 +17,7 @@
                         <i class="fa fa-chart-line fa-3x text-primarys" style="color: #EB1616" ></i>
                         <div class="ms-3">
                             <p class="mb-2">Số nhà tổ chức</p>
-                            <h6 class="mb-0">11</h6>
+                            <h6 class="mb-0">{{listNhaToChuc.length}}</h6>
                         </div>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                         <i class="fa fa-chart-bar fa-3x text-primarys " style="color: #EB1616" ></i>
                         <div class="ms-3">
                             <p class="mb-2">Số sự kiện</p>
-                            <h6 class="mb-0">$1234</h6>
+                            <h6 class="mb-0">{{listSuKien.length}}</h6>
                         </div>
                     </div>
                 </div>
@@ -83,30 +83,30 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Recent Salse</h6>
-                    <a href="">Show All</a>
+                    <h6 class="mb-0">Nhật ký hoạt động</h6>
+                    <!-- <a href="">Show All</a> -->
                 </div>
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
                             <tr class="text-white">
-                                <th scope="col">Date</th>
-                                <th scope="col">Invoice</th>
-                                <th scope="col">Customer</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
+                                <th scope="col">STT</th>
+                                <th scope="col">Nội dung</th>
+                                <th scope="col">Thời gian</th>
+                                <th scope="col">Vai trò</th>
+                                <th scope="col">Tài khoản</th>
+                                <th scope="col">Tên người quản trị</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let l of loggers;index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{l.content}}</td>
+                                <td>{{l.dateTime | date: 'HH:mm dd/MM/yyyy'}}</td>
+                                <td>{{l.roleName}}</td>
+                                <td>{{l.users.username}}</td>
+                                <td>{{l.users.fullname}}</td>
                                 
-                                <td>01 Jan 2045</td>
-                                <td>INV-0123</td>
-                                <td>Jhon Doe</td>
-                                <td>$123</td>
-                                <td>Paid</td>
-                                <td><a class="btn btn-sm btn-primary"  sty>Detail</a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -117,7 +117,7 @@
 
 
         <!-- Widgets Start -->
-        <div class="container-fluid pt-4 px-4">
+        <!-- <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
                 <div class="col-sm-12 col-md-6 col-xl-4">
                     <div class="h-100 bg-secondary rounded p-4"  style="background-color: #191C24 !important;">
@@ -234,7 +234,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Widgets End -->
 
 

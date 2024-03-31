@@ -38,7 +38,7 @@ export class SuKienComponent implements OnInit {
   organizerId: number | string = '';
   getNhaToChuc() {
     this.spinner.show();
-    this.nhaToChucService.getNhaToChuc().subscribe({
+    this.nhaToChucService.getNhaToChuc('').subscribe({
       next: (response: NhaToChuc[]) => {
         this.spinner.hide();
         this.nhaToChuc = response;

@@ -109,17 +109,7 @@ export class LoginComponent implements OnInit {
                         localStorage.setItem('username', JSON.stringify(this.loginForm.value.username));
                         this.router.navigate(['/trangchu']);
                         this.submitDangNhap = false;
-                    } else {
-                        if(element == "ADMIN") {
-                            localStorage.setItem('tokenAdmin',response.token);
-                            localStorage.setItem('usernameAdmin',JSON.stringify(this.loginForm.value.username));
-                            this.router.navigate(['/trangchu-admin']);
-                            this.submitDangNhap = false
-                        } else {
-                            this.errorMessage = 'Đăng nhập thất bại!';
-                        }
-                        
-                    }
+                    } 
                 });
             },
             error: (error) => {

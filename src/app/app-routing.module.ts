@@ -10,6 +10,9 @@ import { LichSuComponent } from './lich-su/lich-su.component';
 import { TrangChuAdminComponent } from './trang-chu-admin/trang-chu-admin.component';
 import { PhanQuyenAdminComponent } from './phan-quyen-admin/phan-quyen-admin.component';
 import { InfoAdminComponent } from './info-admin/info-admin.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
+import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
 
 
 const routes: Routes = [
@@ -23,6 +26,9 @@ const routes: Routes = [
     { path: 'trangchu-admin',component: TrangChuAdminComponent},
     { path: 'phanquyen-admin',component: PhanQuyenAdminComponent},
     { path: 'info-admin',component: InfoAdminComponent},
+    { path: 'dangnhap-admin',component: LoginAdminComponent},
+    { path: 'nha-to-chuc-admin',component: NhaToChucAdminComponent},
+    { path: 'su-kien-admin',component: SuKienAdminComponent},
     { path: '**', component: NotFoundComponent },
 ];
 

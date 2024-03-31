@@ -22,7 +22,7 @@ export class NhaToChucComponent implements OnInit {
       this.getNhaToChuc();
   }
   getNhaToChuc() {
-    this.nhaToChucService.getNhaToChuc().subscribe({
+    this.nhaToChucService.getNhaToChuc('').subscribe({
       next:(response: NhaToChuc[]) => {
         this.nhaToChuc = response;
       }

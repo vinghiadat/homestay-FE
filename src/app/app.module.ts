@@ -23,6 +23,9 @@ import { FooterAdminComponent } from './footer-admin/footer-admin.component';
 import { NavbarAdminComponent } from './navbar-admin/navbar-admin.component';
 import { PhanQuyenAdminComponent } from './phan-quyen-admin/phan-quyen-admin.component';
 import { InfoAdminComponent } from './info-admin/info-admin.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
+import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
+import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +43,10 @@ import { InfoAdminComponent } from './info-admin/info-admin.component';
     FooterAdminComponent,
     NavbarAdminComponent,
     PhanQuyenAdminComponent,
-    InfoAdminComponent
+    InfoAdminComponent,
+    LoginAdminComponent,
+    NhaToChucAdminComponent,
+    SuKienAdminComponent
   ],
   imports: [
     BrowserModule,

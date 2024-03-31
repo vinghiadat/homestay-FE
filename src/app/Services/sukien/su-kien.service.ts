@@ -47,4 +47,7 @@ export class SuKienService {
       this.getFullUrl(`api/v1/event/by-organizer-excluding?organizerId=${organizerId}&eventId=${eventId}`)
     );
   }
+  deleteById(id: number, userId:number) : Observable<any> {
+    return this.http.delete<void>(this.getFullUrl(`api/v1/event/${id}/user/${userId}`));
+  }
 }
