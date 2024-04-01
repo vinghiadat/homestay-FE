@@ -50,4 +50,10 @@ export class SuKienService {
   deleteById(id: number, userId:number) : Observable<any> {
     return this.http.delete<void>(this.getFullUrl(`api/v1/event/${id}/user/${userId}`));
   }
+  addSuKien(userId:number, suKien: SuKien): Observable<any> {
+    return this.http.post<void>(this.getFullUrl(`api/v1/event/user/${userId}`),suKien);
+  }
+  updateById(id:number, userId: number, sukien: SuKien): Observable<any> {
+    return this.http.patch<void>(this.getFullUrl(`api/v1/event/${id}/user/${userId}`),sukien);
+  }
 }

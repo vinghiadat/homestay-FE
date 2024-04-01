@@ -5,7 +5,6 @@ export class HoatDong {
     public  activityName:string,
     public  description:string,
     public  img:string,
-    public  priority:number,
-    public date: Date
+    public  dateTime:Date
     ){}
 }

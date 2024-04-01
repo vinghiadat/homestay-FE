@@ -9,6 +9,7 @@ import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
 import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { SuKienService } from '../Services/sukien/su-kien.service';
 import { SuKien } from '../Models/sukien/su-kien';
+import { datetimeFormatValidator } from '../validators/datetime-format.validator';
 
 @Component({
   selector: 'app-su-kien-admin',
@@ -16,6 +17,7 @@ import { SuKien } from '../Models/sukien/su-kien';
   styleUrls: ['./su-kien-admin.component.css']
 })
 export class SuKienAdminComponent implements OnInit {
+  
   isSidebarOpen: boolean = false;
   suKienForm!: FormGroup;
   submitted = false; //Kiểm tra bấm nút submitted chưa
@@ -27,7 +29,7 @@ export class SuKienAdminComponent implements OnInit {
   searchOrganizerName: string = '';
 
   isEditForm: Boolean = false; //Biến kiểm tra nếu true thì form thêm ngược lại thì form edit
-  idNhaToChuc!: number;
+  idSuKien!: number;
 
   tenSuKien: string = '';
   eventStatus: string = '';
@@ -36,14 +38,13 @@ export class SuKienAdminComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router:Router) { 
     this.suKienForm = this.formBuilder.group({
         eventName: ['', Validators.required],
-        startDateTime: ['', Validators.required],
-        endDateTime: ['', Validators.required],
+        startDateTime: ['', [Validators.required, datetimeFormatValidator()]],
+        endDateTime: ['', [Validators.required, datetimeFormatValidator()]],
         description: [''],
         maxQuantity: ['', Validators.required],
         img: ['', Validators.required],
-        organizer: this.formBuilder.group({
-          id: ['', Validators.required] // Tạo một FormGroup nhỏ cho trường organizer với thuộc tính id
-        })
+        organizerId: ['', Validators.required],
+        status: ['']
       });
   }    
   
@@ -79,16 +80,16 @@ export class SuKienAdminComponent implements OnInit {
   searchOByOrganizerName() {
     this.getNhaToChuc();
   }
-  themNhaToChuc() {
+  themSuKien() {
     this.submitted = true;
     console.log(this.suKienForm.value);
     if(this.suKienForm.valid == true) {
-      this.nhaToChucService.addNhaToChuc(JSON.parse(localStorage.getItem("userId")!),this.suKienForm.value).subscribe({
+      this.suKienService.addSuKien(JSON.parse(localStorage.getItem("userId")!),this.suKienForm.value).subscribe({
         next: (response: any) => {
             this.cancel();
             this.isCheckSuccess = true;
-            this.successMessage = "Thêm nhà tổ chức thành công";
-            this.getNhaToChuc();
+            this.successMessage = "Thêm sự kiện thành công";
+            this.getSuKien();
         },
         error: (error) => {
         }
@@ -96,14 +97,15 @@ export class SuKienAdminComponent implements OnInit {
     }
   }
   // Chỉnh sửa nhà tổ chức
-  suaNhaToChuc() {
+  suaSuKien() {
     this.submitted = true;
-    this.nhaToChucService.updateById(this.idNhaToChuc,JSON.parse(localStorage.getItem('userId')!),this.suKienForm.value).subscribe({
+    console.log(this.suKienForm.value)
+    this.suKienService.updateById(this.idSuKien,JSON.parse(localStorage.getItem('userId')!),this.suKienForm.value).subscribe({
       next: (response: void) => {
         this.cancel();
         this.isCheckSuccess = true;
-        this.successMessage = "Chỉnh sửa nhà tổ chức thành công";
-        this.getNhaToChuc();
+        this.successMessage = "Chỉnh sửa sự kiện thành công";
+        this.getSuKien();
       },
       error: (error) => {
 
@@ -112,16 +114,20 @@ export class SuKienAdminComponent implements OnInit {
   }
   // Lấy thông tin nhà tổ chức theo ID
   getInfoById(id: number) {
-    this.idNhaToChuc = id;
-    this.nhaToChucService.getInfoById(id).subscribe({
-      next: (response: NhaToChuc) => {
+    this.idSuKien = id;
+    this.suKienService.getEventById(id).subscribe({
+      next: (response: SuKien) => {
+        this.cancel();
         this.isEditForm = true;
         this.suKienForm.patchValue({
-          organizerName: response.organizerName,
+          eventName: response.eventName,
+          startDateTime: response.startDateTime,
+          endDateTime: response.endDateTime,
+          description: response.description,
+          maxQuantity: response.maxQuantity,
           img: response.img,
-          address: response.address,
-          phone: response.phone,
-          email: response.email
+          organizerId: response.organizer.id,
+          status: response.status
         });
         // Cuộn trang lên đầu
         window.scrollTo({ top: 0, behavior: 'smooth' });
