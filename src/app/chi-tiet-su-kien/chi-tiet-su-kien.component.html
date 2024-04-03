@@ -1,4 +1,7 @@
 <app-header></app-header>
+<ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff"  type="ball-scale-multiple" [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+  </ngx-spinner>
 <main id="main" style="margin: 130px;" *ngIf="event; else noEvent">
     
     <div>
@@ -95,7 +98,7 @@
                                                 </span>
                                             </button></div>
                                         <ng-template #thamGiaRoi>
-                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  
+                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  *ngIf="registration && registration.status == 0"
                                             data-content-name="addToCart" data-content-target="productDetail"
                                             data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
                                             class="css-yp9swi"><button height="2.5rem" color="primary500"  style="    background: green;
@@ -106,33 +109,36 @@
                                                     <div class="css-157jl91"></div>
                                                 </span>
                                             </button></div>
-                                            <!-- <div data-content-region-name="descriptionDetail" data-track-content="true" 
-                                            data-content-name="buyNow" data-content-target="cart"
-                                            data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
-                                            class="css-yp9swi" ><button height="2.5rem" color="white" (click)="dangKySuKien()"
-                                                class="att-detail-page-buy-now-button css-f7nwna" type="button" style="background-color: black;">
-                                                <div type="subtitle" class="css-fdtrln">BẠN KHÔNG THAM GIA ĐÚNG HẸN
-                                                    </div><span style="margin-left: 0px;">
-                                                    <div class="css-157jl91"></div>
-                                                </span>
-                                            </button></div> -->
-                                        </ng-template>
-                                        
-                                    </div>
-                                    <div class="css-f7zc9t" *ngIf="registration && registration.status == 0">
-                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  
+                                            <div data-content-region-name="descriptionDetail" data-track-content="true"  *ngIf="registration && registration.status == 1"
                                             data-content-name="addToCart" data-content-target="productDetail"
                                             data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
                                             class="css-yp9swi"><button height="2.5rem" color="primary500"  style="    background: black;
                                             color: #fff;
                                             font-weight: bold; pointer-events: none;"
                                                 class="css-1nhnj3v" type="button">
-                                                <div type="subtitle" class="css-fdtrln" >BẠN KHÔNG THAM DỰ ĐÚNG HẸN !<br />TÀI KHOẢN BẠN SẼ BỊ KHÓA</div><span style="margin-left: 0px;">
+                                                <div type="subtitle" class="css-fdtrln" >BẠN ĐÃ THAM DỰ ĐÚNG HẸN</div><span style="margin-left: 0px;">
                                                     <div class="css-157jl91"></div>
                                                 </span>
                                             </button></div>
+                                            <div class="css-f7zc9t" *ngIf="registration && registration.status == 2">
+                                                <div data-content-region-name="descriptionDetail" data-track-content="true"  
+                                                data-content-name="addToCart" data-content-target="productDetail"
+                                                data-content-payload="{&quot;sku&quot;:&quot;220801566&quot;,&quot;screenName&quot;:&quot;productDetail&quot;}"
+                                                class="css-yp9swi"><button height="2.5rem" color="primary500"  style="    background: #dc3545;
+                                                color: #fff;
+                                                font-weight: bold; pointer-events: none;"
+                                                    class="css-1nhnj3v" type="button">
+                                                    <div type="subtitle" class="css-fdtrln" >BẠN KHÔNG THAM DỰ ĐÚNG HẸN. TÀI KHOẢN BẠN SẼ BỊ KHÓA</div><span style="margin-left: 0px;">
+                                                        <div class="css-157jl91"></div>
+                                                    </span>
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+                                        </ng-template>
                                         
                                     </div>
+                                    
                                     <div class="css-9eazwe">
                                         <div width="100%" color="divider" class="css-1fm9yfq"></div>
                                     </div>

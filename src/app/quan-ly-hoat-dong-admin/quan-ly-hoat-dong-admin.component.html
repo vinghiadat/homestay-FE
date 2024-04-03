@@ -15,10 +15,10 @@
                 <div class="col-sm-12 col-xl-12 mb-3">
                     <!-- Form thêm -->
                     <div class="bg-secondary1 rounded h-100 p-4" *ngIf="!isEditForm ; else edit">
-                        <h6 class="mb-4">Thêm sự kiện</h6>
+                        <h6 class="mb-4">Thêm hoạt động</h6>
                         <form [formGroup]="suKienForm" (ngSubmit)="themSuKien()">
                             <div class="mb-3">
-                                <label for="eventName" class="form-label">Tên sự kiện</label>
+                                <label for="eventName" class="form-label">Tên hoạt động</label>
                                 <input type="text" class="form-control" id="eventName" formControlName="eventName" 
                                     aria-describedby="emailHelp">
                                 <div *ngIf="submitted">
@@ -26,28 +26,21 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
-                                <input type="text" id="startDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="startDateTime"/>
-                                <div *ngIf="submitted">
+                                <label for="startDateTime" class="form-label"  >Ngày</label>
+                                <input style="width: 15%" type="date" id="startDateTime"  class="form-control" [min]="2024-04-04" [max]="2024-04-06" formControlName="startDateTime"/>
+                                <!-- <div *ngIf="submitted">
                                     <small class="text-danger" *ngIf="suKienForm.controls['startDateTime'].errors && suKienForm.controls['startDateTime'].errors['required']">Ngày bắt đầu không được để trống</small>
                                     <small class="text-danger" *ngIf="suKienForm.controls['startDateTime'].errors && !suKienForm.controls['startDateTime'].errors['required'] && suKienForm.controls['startDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
-                                  </div>
+                                  </div> -->
                             </div>
                             
                             <div class="mb-3">
-                                <label for="endDateTime" class="form-label"  >Ngày kết thúc</label>
-                                <input type="text" id="endDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="endDateTime"/>
+                                <label for="endDateTime" class="form-label"  >Giờ</label>
+                                <input type="text" style="width: 15%"  id="endDateTime"  class="form-control" placeholder="hh:mm" formControlName="endDateTime"/>
                                 <div *ngIf="submitted">
                                     <small class="text-danger" *ngIf="suKienForm.controls['endDateTime'].errors && suKienForm.controls['endDateTime'].errors['required']">Ngày kết thúc không được để trống</small>
                                     <small class="text-danger" *ngIf="suKienForm.controls['endDateTime'].errors && !suKienForm.controls['endDateTime'].errors['required'] && suKienForm.controls['endDateTime'].errors['invalidDatetimeFormat']">Nhập đúng định dạng yyyy-mm-ddThh:mm:ss, Ví dụ: 8g sáng ngày 01/04/2024 sẽ là 2024-04-01T08:00:00</small>
                                   </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="maxQuantity" class="form-label" >Số lượng tối đa</label>
-                                <input type="number" class="form-control" id="maxQuantity"  formControlName="maxQuantity" min="1" >
-                                <div *ngIf="submitted">
-                                    <small class="text-danger" *ngIf="suKienForm.controls['maxQuantity'].errors && suKienForm.controls['maxQuantity'].errors['required']">Số lượng không được để trống</small>
-                                </div>
                             </div>
                             <div class="mb-3">
                                 <label for="img" class="form-label" >Hình ảnh</label>
@@ -61,19 +54,6 @@
                                     <textarea class="form-control" placeholder="Viết mô tả tại đây" formControlName="description"
                                         id="floatingTextarea" style="height: 150px;"></textarea>
                                     <label for="floatingTextarea">Mô tả</label>
-                                </div>
-                            </div>
-                            
-                            <div class="mb-3">
-                                <div class="form-floating">
-                                    <select class="form-control" id="floatingSelect" formControlName="organizerId" aria-label="Floating label select example">
-                                        <option value="" selected>Tất cả</option>
-                                        <option *ngFor="let organizer of listNhaToChuc" [value]="organizer.id">{{ organizer.organizerName }}</option>
-                                    </select>
-                                    <div *ngIf="submitted">
-                                        <small class="text-danger" *ngIf="suKienForm.controls['organizerId'].errors && suKienForm.controls['organizerId'].errors['required']">Nhà tổ chức không được để trống</small>
-                                    </div>
-                                    <label for="floatingSelect">Chọn tổ chức</label>
                                 </div>
                             </div>
                             
@@ -221,7 +201,7 @@
                                         <td>
                                             <div><a class="btn btn-sm btn-primary" (click)="deleteSuKien(s.id)"  >Xóa</a></div>
                                             <div><a class="btn btn-sm btn-light" (click)="getInfoById(s.id)" >Sửa</a></div>
-                                            <div><a class="btn btn-sm btn-dark" style="color: #fff;" [routerLink]="['/quan-ly-su-kien-admin', s.id]">Chi tiết</a></div>
+                                            <div><a class="btn btn-sm btn-dark" style="color: #fff;" >Chi tiết</a></div>
                                             
                                         </td>
                                     </tr>

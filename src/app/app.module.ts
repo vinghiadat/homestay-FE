@@ -26,6 +26,8 @@ import { InfoAdminComponent } from './info-admin/info-admin.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
 import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
+import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
+import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-hoat-dong-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +48,9 @@ import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
     InfoAdminComponent,
     LoginAdminComponent,
     NhaToChucAdminComponent,
-    SuKienAdminComponent
+    SuKienAdminComponent,
+    KhachDatAdminComponent,
+    QuanLyHoatDongAdminComponent
   ],
   imports: [
     BrowserModule,

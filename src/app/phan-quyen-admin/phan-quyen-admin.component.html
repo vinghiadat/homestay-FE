@@ -131,6 +131,7 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Vai trò</th>
                                         <th scope="col">Trạng thái</th>
+                                        <th scope="col">Thao tác</th>
                                         <!-- <th scope="col">Thao tác</th> -->
                                     </tr>
                                 </thead>
@@ -147,11 +148,11 @@
                                             <span *ngFor="let roleName of u.roles;index as i">{{roleName.name}}<span *ngIf="i+1 <u.roles.length"> ,</span> </span>
                                         </td>
                                         <td><span *ngIf="u.status; else khoa">Hoạt động</span><ng-template #khoa><span>Đã khóa</span></ng-template></td>
-                                        <!-- <td>
-                                            <div><a class="btn btn-sm btn-primary"  sty>Xóa</a></div>
-                                            <div><a class="btn btn-sm btn-light"  sty>Sửa</a></div>
+                                        <td>
+                                            <div *ngIf="!u.status"><a class="btn btn-sm btn-primary" (click)="updateById(u.id,true)" >Mở khóa</a></div>
+                                            <div *ngIf="u.status"><a class="btn btn-sm btn-light" (click)="updateById(u.id,false)" >Khóa</a></div>
                                             
-                                        </td> -->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

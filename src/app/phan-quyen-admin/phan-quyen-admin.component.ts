@@ -154,4 +154,18 @@ export class PhanQuyenAdminComponent implements OnInit {
   seachUserByUsername() {
     this.getAllUsers();
   }
+  updateById(id:number ,trangThai: boolean) {
+    const object = {
+      status: trangThai
+    };
+    this.userService.updateById(id,JSON.parse(localStorage.getItem('userId')!),object).subscribe({
+      next: (response : void)=> {
+        
+        this.getAllUsers();
+      },
+      error: (error) => {
+
+      }
+    })
+  }
 }

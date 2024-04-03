@@ -36,5 +36,8 @@ export class UserService {
   getAllUsers(username: string | null): Observable<User[]> {
     return this.http.get<User[]>(this.getFullUrl(`api/v1/user?username=${username}`));
   }
+  updateById(id: number, userId: number, user: any): Observable<void> {
+    return this.http.patch<void>(this.getFullUrl(`api/v1/user/${id}/user/${userId}`),user);
+  } 
   
 }

@@ -13,6 +13,8 @@ import { InfoAdminComponent } from './info-admin/info-admin.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.component';
 import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
+import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
+import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-hoat-dong-admin.component';
 
 
 const routes: Routes = [
@@ -29,6 +31,8 @@ const routes: Routes = [
     { path: 'dangnhap-admin',component: LoginAdminComponent},
     { path: 'nha-to-chuc-admin',component: NhaToChucAdminComponent},
     { path: 'su-kien-admin',component: SuKienAdminComponent},
+    { path: 'datve',component: KhachDatAdminComponent},
+    { path: 'quan-ly-su-kien-admin/:id',component: QuanLyHoatDongAdminComponent},
     { path: '**', component: NotFoundComponent },
 ];
 

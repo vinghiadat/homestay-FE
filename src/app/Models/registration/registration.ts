@@ -5,7 +5,7 @@ export class Registration {
     constructor(
         public id:number,
         public event: SuKien,
-        public registationDate: Date,
+        public registrationDate: Date,
         public status: number,
         public users: User
     ) {

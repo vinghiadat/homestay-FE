@@ -10,6 +10,7 @@ import { User } from '../Models/user/user';
 import { RegistrationService } from '../Services/registration/registration.service';
 import { subDays } from 'date-fns';
 import { Registration } from '../Models/registration/registration';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-chi-tiet-su-kien',
@@ -22,7 +23,7 @@ export class ChiTietSuKienComponent implements OnInit {
   userId!: number;
   event!: SuKien;
   hoatDong: HoatDong[] = [];
-  constructor(private registrationService: RegistrationService,private userService: UserService,private router: Router,private datePipe: DatePipe ,private route: ActivatedRoute,private suKienService: SuKienService,private hoatDongService: HoatDongService) { }
+  constructor(private spinner: NgxSpinnerService,private registrationService: RegistrationService,private userService: UserService,private router: Router,private datePipe: DatePipe ,private route: ActivatedRoute,private suKienService: SuKienService,private hoatDongService: HoatDongService) { }
   eventDays: string[] = [];
   relatedEvents: SuKien[] = [];
   thamGiaChua: Boolean = false;
@@ -70,6 +71,7 @@ export class ChiTietSuKienComponent implements OnInit {
     })
   }
   dangKySuKien() {
+    this.spinner.show();
     if(confirm("Khi đăng ký xong không thể hoàn tác! Bạn có muốn tiếp tục không.")) {
         this.registrationService.registerEvent({
           "users" : {
@@ -80,11 +82,14 @@ export class ChiTietSuKienComponent implements OnInit {
           }
       }).subscribe({
         next: (response: any) => {
+          this.spinner.hide();
           alert("Đăng ký sự kiện thành công!");
           this.thamGiaChua = true;
+          this.getRegistrationByUserIdAndEventId();
         },
         error: (error) => {
           alert(error.error.message);
+          this.spinner.hide();
         }
       })
     }

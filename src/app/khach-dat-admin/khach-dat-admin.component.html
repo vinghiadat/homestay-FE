@@ -1,0 +1,70 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+
+        <!-- Recent Sales Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Danh sách khách đăng ký sự kiện</h6>
+                    <!-- <a href="">Show All</a> -->
+                </div>
+                <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="userFullname" (input)="getAllRegistrations()">
+                <div class="table-responsive">
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-white">
+                                <th scope="col">STT</th>
+                                <th scope="col">Khách hàng</th>
+                                <th scope="col">Tài khoản</th>
+                                <th scope="col">Sự kiện</th>
+                                <th scope="col">Ngày đăng ký</th>
+                                <th scope="col">Trạng thái</th>
+                                <th scope="col">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let l of listDangKy;index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{l.users.fullname}}</td>
+                                <td>{{l.users.username}}</td>
+                                <td>{{l.event.eventName}}</td>
+                                <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
+                                <td>
+                                    <span *ngIf="l.status ==0">Chưa xử lý</span>
+                                    <span *ngIf="l.status ==1">Đã tham gia</span>
+                                    <span *ngIf="l.status ==2">Không tham gia đúng hẹn</span>
+                                </td>
+                                <td>
+                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,1)"  >Xác nhận tham dự</a></div>
+                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,2)">Không tham dự</a></div>
+                                            <div *ngIf="l.status != 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,0)">Hoàn tác</a></div>
+                                </td>
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Recent Sales End -->
+        <!-- Widgets End -->
+
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
