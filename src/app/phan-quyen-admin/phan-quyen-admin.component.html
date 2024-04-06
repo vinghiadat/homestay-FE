@@ -64,7 +64,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label" >Địa chỉ</label>
-                                <input type="password" class="form-control" id="address"  formControlName="address" >
+                                <input type="text" class="form-control" id="address"  formControlName="address" >
                                 <div *ngIf="submitted">
                                     <small class="text-danger" *ngIf="registerForm.controls['address'].errors && registerForm.controls['address'].errors['required']">Địa chỉ không được để trống</small>
                                 </div>

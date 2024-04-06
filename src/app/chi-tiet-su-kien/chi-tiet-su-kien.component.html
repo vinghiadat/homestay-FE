@@ -246,7 +246,7 @@
           <div class="tab-content row justify-content-center">
             <div role="tabpanel" class="col-lg-9  tab-pane fade"  *ngFor="let activity of hoatDong; let i = index" [id]="'day-' + (i+1)" [class.show]="i == 0" [class.active]="i == 0">
                 <div class="row schedule-item" *ngFor="let hd of hoatDong; let j = index">
-                    <div class="col-md-2"><time>{{j+1}}</time></div>
+                    <div class="col-md-2"><time>10:30</time></div>
                     <div class="col-md-10">
                         <div class="speaker" *ngIf="hd.img">
                             <img [src]="hd.img" alt="Brenden Legros">

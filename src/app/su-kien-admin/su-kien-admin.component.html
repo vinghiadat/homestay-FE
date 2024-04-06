@@ -102,6 +102,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="startDateTime" class="form-label"  >Ngày bắt đầu</label>
+                                    
                                     <input type="text" id="startDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="startDateTime"/>
                                     <div *ngIf="submitted">
                                         <small class="text-danger" *ngIf="suKienForm.controls['startDateTime'].errors && suKienForm.controls['startDateTime'].errors['required']">Ngày bắt đầu không được để trống</small>
@@ -111,6 +112,7 @@
                                 
                                 <div class="mb-3">
                                     <label for="endDateTime" class="form-label"  >Ngày kết thúc</label>
+                                    
                                     <input type="text" id="endDateTime"  class="form-control" placeholder="MM/DD/YYYY hh:mm:ss" formControlName="endDateTime"/>
                                     <div *ngIf="submitted">
                                         <small class="text-danger" *ngIf="suKienForm.controls['endDateTime'].errors && suKienForm.controls['endDateTime'].errors['required']">Ngày kết thúc không được để trống</small>
