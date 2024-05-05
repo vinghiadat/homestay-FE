@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { SuKienService } from '../Services/sukien/su-kien.service';
 import { SuKien } from '../Models/sukien/su-kien';
 import { NhaToChucService } from '../Services/nhatochuc/nha-to-chuc.service';
 import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { TypeService } from '../Services/homestayType/type.service';
+import { Type } from '../Models/homestayType/type';
+import { Room } from '../Models/homestay/room';
+import { RoomService } from '../Services/homestay/room.service';
 
 @Component({
   selector: 'app-su-kien',
@@ -13,51 +16,51 @@ import { NgxSpinnerService } from 'ngx-spinner';
   encapsulation: ViewEncapsulation.None
 })
 export class SuKienComponent implements OnInit {
-  constructor(private spinner: NgxSpinnerService,private suKienService: SuKienService,private nhaToChucService: NhaToChucService,private router: Router,private route: ActivatedRoute){}
+  constructor(private spinner: NgxSpinnerService,private roomService: RoomService,private typeService: TypeService,private router: Router,private route: ActivatedRoute){}
   ngOnInit(): void {
-    this.getSuKien();
-    this.getNhaToChuc();
+    this.getRooms();
+    this.getTypes();
 
     // Lấy giá trị của organizerId từ query parameter
     this.route.queryParams.subscribe(params => {
-      const organizerId = params['organizerId'];
+      const typeId = params['typeId'];
      
-      if (organizerId) {
-        this.organizerId = organizerId;
+      if (typeId) {
+        this.typeId = typeId;
         // Gọi API hoặc xử lý theo organizerId
-        // this.updateSuKienByOrganizerId(organizerId);
-        this.updateSuKienByStatusAndEventNameAndOrganizerId();
+        // this.updateRoomByTypeId(organizerId);
+        // this.updateSuKienByStatusAndEventNameAndOrganizerId();
       }
     });
   }
   soLuong: number = 0;
-  suKien: SuKien[] = [];
-  nhaToChuc: NhaToChuc[] = [];
-  tenSuKien: string = '';
-  eventStatus: string = '';
-  organizerId: number | string = '';
-  getNhaToChuc() {
+  listRooms: Room[] = [];
+  listType: Type[] = [];
+  roomName: string = '';
+  roomStatus: string = '';
+  typeId: number | string = '';
+  getTypes() {
     this.spinner.show();
-    this.nhaToChucService.getNhaToChuc('').subscribe({
-      next: (response: NhaToChuc[]) => {
+    this.typeService.getAllTypes('').subscribe({
+      next: (response: Type[]) => {
         this.spinner.hide();
-        this.nhaToChuc = response;
+        this.listType = response;
       }
     })
   }
-  getSuKien() {
+  getRooms() {
     this.spinner.show();
-    this.suKienService.getSuKien().subscribe({
-      next:(response: SuKien[]) => {
+    this.roomService.getAllRooms(null,null,null,null,null,null).subscribe({
+      next:(response: Room[]) => {
         this.spinner.hide();
-        this.suKien = response;
+        this.listRooms = response;
       }
     })
   }
   navigateToSuKien(id?: number) {
     if(id===undefined) {
-      this.organizerId = '';
-      this.getSuKien();
+      this.typeId = '';
+      this.getRooms();
       // Tạo NavigationExtras để xóa query parameter organizerId
       const navigationExtras: NavigationExtras = {
         replaceUrl: true,  // Thay thế URL hiện tại, không tạo lịch sử duyệt web
@@ -65,35 +68,35 @@ export class SuKienComponent implements OnInit {
 
       this.router.navigate(['/sukien'], navigationExtras);
     } else {
-      this.router.navigate(['/sukien'], { queryParams: { organizerId: id } });
+      this.router.navigate(['/sukien'], { queryParams: { typeId: id } });
     }
     
   } 
-  updateSuKienByOrganizerId(organizerId: number) {
+  updateRoomByTypeId(typeId: number) {
 
-    this.suKienService.getSuKienByOrganizerId(organizerId).subscribe({
-      next: (response: SuKien[]) => {
+    this.roomService.getAllRooms(null,typeId,null,null,null,null).subscribe({
+      next: (response: Room[]) => {
         this.spinner.hide();
-        this.suKien = response;
+        this.listRooms = response;
       },
       error: (error) => {
         // Xử lý lỗi nếu cần
       }
     });
   }
-  updateSuKienByStatus(status: string) {
-    this.eventStatus = status;
-    this.updateSuKienByStatusAndEventNameAndOrganizerId();
-  }
-  updateSuKienByStatusAndEventNameAndOrganizerId() {
-    this.spinner.show();
-    this.suKienService.getEventsByStatusAndOrganizerIdAndName(this.eventStatus,this.tenSuKien,this.organizerId).subscribe({
-      next:(response: SuKien[]) => {
-        this.spinner.hide();
-        this.suKien = response;
-        console.log(this.suKien);
-      }
-    })
-  }
+  // updateSuKienByStatus(status: string) {
+  //   this.roomStatus = status;
+  //   this.updateSuKienByStatusAndEventNameAndOrganizerId();
+  // }
+  // updateSuKienByStatusAndEventNameAndOrganizerId() {
+  //   this.spinner.show();
+  //   this.roomService.getAllRooms(this.roomStatus,this.roomName,this.typeId).subscribe({
+  //     next:(response: SuKien[]) => {
+  //       this.spinner.hide();
+  //       this.suKien = response;
+  //       console.log(this.suKien);
+  //     }
+  //   })
+  // }
 
 }

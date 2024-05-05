@@ -10,17 +10,17 @@
     <section id="speakers" class="wow fadeInUp">
         <div class="container">
           <div class="section-header">
-            <h2>Nhà tổ chức</h2>
-            <p>Một số nhà tổ chức nổi tiếng</p>
+            <h2>Loại homestay</h2>
+            <p>Chúng tôi cung cấp các loại homestay sau</p>
           </div>
   
           <div class="row">
-            <div class="col-lg-4 col-md-6 mb-3" *ngFor="let n of nhaToChuc" >
+            <div class="col-lg-4 col-md-6 mb-3" *ngFor="let t of listType" >
               <div class="speaker">
-                <img [src]="n.img" alt="Speaker 1" class="img-fluid">
+                <img [src]="t.img" alt="Speaker 1" class="img-fluid" style="height: 300px; width: 100%;">
                 <div class="details">
-                  <h3 class="text-center"><a  style="color: #f82249; cursor: pointer;" (click)="navigateToSuKien(n.id)">{{n.organizerName}}</a></h3>
-                  <p style="text-align: justify;"><span style="font-weight: bold;">Trụ sở chính: </span>{{n.address}}</p>
+                  <h3 class="text-center"><a  style="color: #f82249; cursor: pointer;" [routerLink]="['/homestay']" [queryParams]="{typeId: t.id}">{{t.typeName}}</a></h3>
+                  <!-- <p style="text-align: justify;"><span style="font-weight: bold;">Trụ sở chính: </span>{{n.address}}</p> -->
                   <div class="social">
                     <a href=""><i class="fa fa-twitter"></i></a>
                     <a href=""><i class="fa fa-facebook"></i></a>

@@ -7,6 +7,9 @@ import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { SuKien } from '../Models/sukien/su-kien';
 import { Registration } from '../Models/registration/registration';
 import { RegistrationService } from '../Services/registration/registration.service';
+import { BookingService } from '../Services/booking/booking.service';
+import { Booking } from '../Models/booking/booking';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-khach-dat-admin',
   templateUrl: './khach-dat-admin.component.html',
@@ -14,21 +17,22 @@ import { RegistrationService } from '../Services/registration/registration.servi
 })
 export class KhachDatAdminComponent implements OnInit{
   isSidebarOpen: boolean = false; 
-  listDangKy: Registration[] = [];
-  eventId: number | string = '';
+  listDangKy: Booking[] = [];
   userFullname: string = '';
+  registrationDate: Date | null =null;
   constructor(
-    private registrationService: RegistrationService
+    private bookingService: BookingService,private spinner: NgxSpinnerService,
   ) { }
   ngOnInit(): void {
-    this.getAllRegistrations();
+    this.getAllBookings();
   }
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-  getAllRegistrations() {
-    this.registrationService.getAllRegistrationByFilter(this.eventId,this.userFullname).subscribe({
-      next: (response: Registration[]) => {
+  getAllBookings() {
+    console.log(this.registrationDate);
+    this.bookingService.getAllBookings(this.registrationDate,this.userFullname).subscribe({
+      next: (response: Booking[]) => {
         this.listDangKy = response;
       },
       error: (error) => {
@@ -37,17 +41,23 @@ export class KhachDatAdminComponent implements OnInit{
     })
   }
   updateRegistration(id:number ,trangThai: number) {
+    this.spinner.show();
     const object = {
       status: trangThai
     };
-    this.registrationService.updateById(id,JSON.parse(localStorage.getItem('userId')!),object).subscribe({
+    this.bookingService.updateById(id,JSON.parse(localStorage.getItem('userId')!),object).subscribe({
       next: (response : void)=> {
-        
-        this.getAllRegistrations();
+        this.spinner.hide();
+        this.getAllBookings();
       },
       error: (error) => {
 
       }
     })
+  }
+  cancel() {
+    this.registrationDate = null;
+    this.userFullname = '';
+    this.getAllBookings();
   }
 }

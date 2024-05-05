@@ -1,0 +1,77 @@
+<div class="container-fluid position-relative d-flex p-0">
+    <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
+
+
+    <!-- Content Start -->
+    <div class="content" [class.open]="isSidebarOpen">
+        <!-- Navbar Start -->
+        <app-navbar-admin (toggleSidebar)="toggleSidebar()"></app-navbar-admin>
+        <!-- Navbar End -->
+
+
+        <!-- Sale & Revenue Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+            </div>
+        </div>
+        <!-- Sale & Revenue End -->
+
+
+        <!-- Sales Chart Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6" >
+                    <div class="bg-secondary text-center rounded p-4" style="background-color: #191C24 !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Số lượng & Tổng doanh thu (trong ngày)</h6>
+                            <input type="date" class="form-control ng-untouched ng-pristine ng-invalid" style="width: 180px" [(ngModel)]="registrationDate" (input)="getAllBookings()"/>
+                            <!-- <a href="">Show All</a> -->   
+                        </div>
+                        <div class="mb-4 text-left">
+                            <div class="mb-3">Số lượng đơn đặt phòng ngày <span *ngIf="registrationDate != null">{{ registrationDate | date : 'dd-MM-yyyy' }}</span>: {{ dailyBookingsCount }}</div>
+                            <div class="mb-3">Doanh thu trong ngày <span *ngIf="registrationDate != null">{{ registrationDate | date : 'dd-MM-yyyy' }}</span>: {{ dailyRevenue }}</div>
+                            <div class="mb-3">Số lượng đơn đặt phòng tháng <span *ngIf="registrationDate != null">{{ registrationDate | date : 'MM-yyyy' }}</span>: {{ monthlyBookingsCount }}</div>
+                            <div class="mb-3">Doanh thu trong tháng <span *ngIf="registrationDate != null">{{ registrationDate | date : 'MM-yyyy' }}</span>: {{ monthlyRevenue }}</div>
+                          </div>
+                        
+                        <canvas id="worldwide-sales"></canvas>
+                    </div>
+                    
+                </div>
+                <div class="col-sm-12 col-xl-6">
+                    <div class="bg-secondary text-center rounded p-4" style="background-color: #191C24 !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0">Homestay</h6>
+                            <!-- <input type="date" class="form-control ng-untouched ng-pristine ng-invalid" style="width: 180px"/> -->
+                            <!-- <a href="">Show All</a> -->
+                            
+                        </div>
+                        <div class=" mb-4 text-left">
+                            <div class="mb-3">Số homestay: </div>
+                            <div class="mb-3">Số homestay đang hoạt động: </div>
+                            <div class="mb-3">Số homestay đang sửa chữa: </div>
+                            <div class="mb-3">Doanh thu trong tháng: </div>
+                        </div>
+                        <canvas id="worldwide-sales"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sales Chart End -->
+
+
+        <!-- Recent Sales Start -->
+        
+        <!-- Recent Sales End -->
+
+
+        <!-- Footer Start -->
+        <app-footer-admin></app-footer-admin>
+        <!-- Footer End -->
+    </div>
+    <!-- Content End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>

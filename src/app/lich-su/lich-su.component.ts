@@ -10,6 +10,13 @@ import { UserService } from '../Services/user/user.service';
 import { RegisterService } from '../Models/register-service/register-service';
 import { RegistrationService } from '../Services/registration/registration.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Room } from '../Models/homestay/room';
+import { Type } from '../Models/homestayType/type';
+import { BookingService } from '../Services/booking/booking.service';
+import { RoomService } from '../Services/homestay/room.service';
+import { TypeService } from '../Services/homestayType/type.service';
+import { Booking } from '../Models/booking/booking';
+import { VNPayService } from '../Services/vnpay/vnpay.service';
 @Component({
   selector: 'app-lich-su',
   templateUrl: './lich-su.component.html',
@@ -17,14 +24,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class LichSuComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder,private userService: UserService,private spinner: NgxSpinnerService,private registrationService: RegistrationService,private nhaToChucService: NhaToChucService,private router: Router,private route: ActivatedRoute){
+  constructor(private VNPayService: VNPayService,private formBuilder: FormBuilder,private userService: UserService,private bookingService: BookingService,private spinner: NgxSpinnerService,private roomService: RoomService,private typeService: TypeService,private router: Router,private route: ActivatedRoute){
     this.changePasswordForm = this.formBuilder.group({
       oldPassword: ['', Validators.required],
       newPassword: ['',Validators.required],
       confirmPassword: ['',Validators.required]
     })
   }
+
   ngOnInit(): void {
+    this.getTypes();
     this.checkExistByUserId();
     // Khai báo các biến
     let login: HTMLElement | null,
@@ -37,7 +46,6 @@ export class LichSuComponent implements OnInit {
     login = document.querySelector('.login');
     closex = document.getElementById('closex');
     cancelbtn = document.querySelector('.cancelbtn');
-    console.log(login);
     // Gán hành động mở modal khi click lên nút login
     if (login) {
         login.onclick = function() {
@@ -111,48 +119,87 @@ export class LichSuComponent implements OnInit {
     this.isCheckSuccess = false;
     this.errorMessage = '';
   }
-  navigateToSuKien(id?: number) {
-    if(id===undefined) {
-      this.organizerId = '';
-      this.updateSuKienByStatusAndEventNameAndOrganizerId();
-      // Tạo NavigationExtras để xóa query parameter organizerId
-      const navigationExtras: NavigationExtras = {
-        replaceUrl: true,  // Thay thế URL hiện tại, không tạo lịch sử duyệt web
-      };
-
-      this.router.navigate(['/sukien'], navigationExtras);
-    } else {
-      this.router.navigate(['/sukien'], { queryParams: { organizerId: id } });
-    }
-    
-  } 
+  
   checkExistByUserId() {
     const username = localStorage.getItem('username');
     this.userService.getInfoByUsername(JSON.parse(username!)).subscribe({
       next:(response: User) => {
         this.userId = response.id;
         this.user = response; 
-        this.updateSuKienByStatusAndEventNameAndOrganizerId();
+        this.getBookingsByUserId();
       },
       error: (error) => {
         console.log(error);
       }
     })
   }
-  updateSuKienByStatus(status: string) {
-    this.eventStatus = status;
-    this.updateSuKienByStatusAndEventNameAndOrganizerId();
-  }
-  updateSuKienByStatusAndEventNameAndOrganizerId() {
-    console.log(this.userId);
-    this.spinner.show();
-    this.registrationService.getEventsByUserIdAndStatusAndOrganizerIdAndName(this.userId,this.eventStatus,this.tenSuKien,this.organizerId).subscribe({
-      next:(response: SuKien[]) => {
-        this.spinner.hide();
-        this.suKien = response;
-        console.log(this.suKien);
+  listBookings: Booking[] = [];
+  listType: Type[] = [];
+  roomName: string = '';
+  roomStatus: string = '';
+  typeId: number | null = null;
+  registrationDate: Date | null = null;
+  price: string = '';
+  getInfoByUsername() {
+    this.userService.getInfoByUsername(JSON.parse(localStorage.getItem('usernameAdmin')!)).subscribe({
+      next: (response :User) => {
+        this.user = response;
+      },
+      error: (error) => {
+
       }
     })
   }
+  getTypes() {
+    this.spinner.show();
+    this.typeService.getAllTypes('').subscribe({
+      next: (response: Type[]) => {
+        this.spinner.hide();
+        this.listType = response;
+      }
+    })
+  }
+  getBookingsByUserId() {
+    this.spinner.show();
+    
+    this.bookingService.getBookingByUserId(this.userId,this.registrationDate,this.typeId,this.roomName).subscribe({
+      next: (response : Booking[]) => {
+        this.listBookings = response;
+        this.spinner.hide();
+      },
+      error: (error) => {
+        
+      }
+    })
+  }
+  navigateToHomestay(id?: number) {
+    if(id===undefined) {
+      this.typeId = null;
+      this.getBookingsByUserId();
+      // Tạo NavigationExtras để xóa query parameter organizerId
+      const navigationExtras: NavigationExtras = {
+        replaceUrl: true,  // Thay thế URL hiện tại, không tạo lịch sử duyệt web
+      };
 
+      this.router.navigate(['/homestay'], navigationExtras);
+    } else {
+      this.router.navigate(['/homestay'], { queryParams: { typeId: id } });
+    }
+    
+  } 
+  resetFilter() {
+    this.registrationDate = null;
+    this.roomName = '';
+    this.getBookingsByUserId();
+  }
+  payment(b: Booking) {
+    this.VNPayService.getPayment(b.price, b.id).subscribe({
+      next: (response: string) => {
+        window.location.href = response;
+      },
+      error: (error) => {
+        alert(error.error.message);
+      },
+    });
+  }
 }

@@ -18,26 +18,8 @@ export class VNPayService {
   getPayment(price: number, id: number): Observable<string> {
     let params = new HttpParams()
       .set('price', price.toString())
-      .set('contractId', id.toString());
+      .set('bookingId', id.toString());
     return this.http.get(this.getFullUrl('api/v1/pay'), {
-      params,
-      responseType: 'text', // Yêu cầu response dưới dạng văn bản
-    });
-  }
-  getPaymentService(price: number, id: number): Observable<string> {
-    let params = new HttpParams()
-      .set('price', price.toString())
-      .set('registerServiceId', id.toString());
-    return this.http.get(this.getFullUrl('api/v1/pay-service'), {
-      params,
-      responseType: 'text', // Yêu cầu response dưới dạng văn bản
-    });
-  }
-  getPaymentBill(price: number, id: number): Observable<string> {
-    let params = new HttpParams()
-      .set('price', price.toString())
-      .set('billId', id.toString());
-    return this.http.get(this.getFullUrl('api/v1/pay-bill'), {
       params,
       responseType: 'text', // Yêu cầu response dưới dạng văn bản
     });

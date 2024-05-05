@@ -1,4 +1,7 @@
 <div class="container-fluid position-relative d-flex p-0">
+    <ngx-spinner  bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff"  type="ball-scale-multiple" [fullScreen] = "true">
+        <p style="color: white" > Loading... </p>
+      </ngx-spinner>
     <app-header-admin [isSidebarOpen]="isSidebarOpen"></app-header-admin>
 
 
@@ -13,10 +16,15 @@
         <div class="container-fluid pt-4 px-4">
             <div class="bg-secondary text-center rounded p-4"  style="background-color: #191C24 !important;">
                 <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Danh sách khách đăng ký sự kiện</h6>
+                    <h6 class="mb-0">Danh sách khách đặt phòng</h6>
                     <!-- <a href="">Show All</a> -->
                 </div>
-                <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên..." [(ngModel)]="userFullname" (input)="getAllRegistrations()">
+                <input type="search" class="form-control mb-3" id="search" style="width: 50%;" placeholder="Tìm kiếm bằng tên khách hàng..." [(ngModel)]="userFullname" (input)="getAllBookings()">
+                <input type="date" class="form-control mb-3" id="search" style="width: 30%;" [(ngModel)]="registrationDate" (input)="getAllBookings()">
+                <div style="text-align: left; " class="mb-3">
+                    <button type="reset" class="btn btn-warning" (click)="cancel()">Làm mới</button>
+                </div>
+                
                 <div class="table-responsive">
                     <table class="table text-start align-middle table-bordered table-hover mb-0">
                         <thead>
@@ -24,8 +32,13 @@
                                 <th scope="col">STT</th>
                                 <th scope="col">Khách hàng</th>
                                 <th scope="col">Tài khoản</th>
-                                <th scope="col">Sự kiện</th>
+                                <th scope="col">Homestay</th>
+                                <th scope="col">Thuộc loại</th>
                                 <th scope="col">Ngày đăng ký</th>
+                                <th scope="col">Ngày đến</th>
+                                <th scope="col">Ngày đi</th>
+                                <th scope="col">Giá</th>
+                                <th scope="col">Hình thức thanh toán</th>
                                 <th scope="col">Trạng thái</th>
                                 <th scope="col">Thao tác</th>
                             </tr>
@@ -35,16 +48,23 @@
                                 <td>{{i+1}}</td>
                                 <td>{{l.users.fullname}}</td>
                                 <td>{{l.users.username}}</td>
-                                <td>{{l.event.eventName}}</td>
+                                <td>{{l.room.roomName}}</td>
+                                <td>{{l.room.type.typeName}}</td>
                                 <td>{{l.registrationDate | date: 'dd-MM-yyyy' }}</td>
+                                <td>{{l.startDateTime | date: 'hh:mm dd/MM/yyyy' }}</td>
+                                <td>{{l.endDateTime | date: 'hh:mm dd/MM/yyyy' }}</td>
+                                <td>{{l.price |number}}đ</td>
+                                <td>{{l.paymentMethod}}</td>
                                 <td>
                                     <span *ngIf="l.status ==0">Chưa xử lý</span>
-                                    <span *ngIf="l.status ==1">Đã tham gia</span>
-                                    <span *ngIf="l.status ==2">Không tham gia đúng hẹn</span>
+                                    <span *ngIf="l.status ==1">Đã xác nhận</span>
+                                    <span *ngIf="l.status ==2">Đã thanh toán</span>
+                                    <span *ngIf="l.status ==-1">Đã hủy</span>
                                 </td>
                                 <td>
-                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,1)"  >Xác nhận tham dự</a></div>
-                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,2)">Không tham dự</a></div>
+                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-primary" (click)="updateRegistration(l.id,1)"  >Xác nhận</a></div>
+                                            <div *ngIf="l.status == 0"><a class="btn btn-sm btn-warning " style="color: #fff;"  (click)="updateRegistration(l.id,-1)">Hủy bỏ</a></div>
+                                            <div *ngIf="l.status == 1"><a class="btn btn-sm btn-success " style="color: #fff;"  (click)="updateRegistration(l.id,2)">Thanh toán</a></div>
                                             <div *ngIf="l.status != 0"><a class="btn btn-sm btn-light "  (click)="updateRegistration(l.id,0)">Hoàn tác</a></div>
                                 </td>
                                 

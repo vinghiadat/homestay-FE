@@ -10,11 +10,11 @@ import { NhaToChuc } from '../Models/nhatochuc/nha-to-chuc';
 import { Type } from '../Models/homestayType/type';
 import { TypeService } from '../Services/homestayType/type.service';
 @Component({
-  selector: 'app-nha-to-chuc-admin',
-  templateUrl: './nha-to-chuc-admin.component.html',
-  styleUrls: ['./nha-to-chuc-admin.component.css']
+  selector: 'app-category-admin',
+  templateUrl: './category-admin.component.html',
+  styleUrls: ['./category-admin.component.css']
 })
-export class NhaToChucAdminComponent implements OnInit {
+export class CategoryAdminComponent implements OnInit {
   isSidebarOpen: boolean = false;
   nhaToChucForm!: FormGroup;
   typeForm!: FormGroup;

@@ -17,14 +17,10 @@ export class TrangChuAdminComponent implements OnInit{
   listNhaToChuc: NhaToChuc[] = [];
   listSuKien: SuKien[] = [];
   constructor(
-    private loggerService: LoggerService,
-    private nhaToChucService: NhaToChucService,
-    private suKienService: SuKienService
+    private loggerService: LoggerService
   ) { }
   ngOnInit(): void {
     this.getAllLoggers();
-    this.getAllNhaToChuc();
-    this.getAllSuKien();
   }
   getAllLoggers() {
     this.loggerService.getAllLoggers().subscribe({
@@ -34,26 +30,6 @@ export class TrangChuAdminComponent implements OnInit{
       },
       error: (error) => {
         
-      }
-    })
-  }
-  getAllNhaToChuc() {
-    this.nhaToChucService.getNhaToChuc('').subscribe({
-      next: (response : NhaToChuc[]) => {
-        this.listNhaToChuc = response;
-      },
-      error: (error) => {
-
-      }
-    })
-  }
-  getAllSuKien() {
-    this.suKienService.getSuKien().subscribe({
-      next: (response : SuKien[]) => {
-        this.listSuKien = response;
-      },
-      error: (error) => {
-
       }
     })
   }

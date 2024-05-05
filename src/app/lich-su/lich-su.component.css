@@ -1786,7 +1786,7 @@ body {
         text-decoration: unset;
         font-size: 12px;
         line-height: 16px;
-        overflow: hidden;
+        /* overflow: hidden; */
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
@@ -1832,7 +1832,7 @@ body {
         text-decoration: unset;
         font-size: 15px;
         line-height: 24px;
-        overflow: hidden;
+        /* overflow: hidden; */
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
@@ -2141,7 +2141,7 @@ body {
         text-decoration: unset;
         font-size: 12px;
         line-height: 16px;
-        overflow: hidden;
+        /* overflow: hidden; */
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 1;
@@ -2368,3 +2368,6 @@ body {
 
 
 
+#mainNavigationBar {
+  height: 180px;
+}

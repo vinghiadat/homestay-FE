@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { NhaToChucComponent } from './nha-to-chuc/nha-to-chuc.component';
 import { SuKienComponent } from './su-kien/su-kien.component';
 import { TrangChuComponent } from './trang-chu/trang-chu.component';
 import { ChiTietSuKienComponent } from './chi-tiet-su-kien/chi-tiet-su-kien.component';
@@ -28,6 +27,11 @@ import { NhaToChucAdminComponent } from './nha-to-chuc-admin/nha-to-chuc-admin.c
 import { SuKienAdminComponent } from './su-kien-admin/su-kien-admin.component';
 import { KhachDatAdminComponent } from './khach-dat-admin/khach-dat-admin.component';
 import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-hoat-dong-admin.component';
+import { CategoryAdminComponent } from './category-admin/category-admin.component';
+import { ProductAdminComponent } from './product-admin/product-admin.component';
+import { ProductComponent } from './product/product.component';
+import { CategoryComponent } from './category/category.component';
+import { ThongKeComponent } from './thong-ke/thong-ke.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,6 @@ import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    NhaToChucComponent,
     SuKienComponent,
     TrangChuComponent,
     ChiTietSuKienComponent,
@@ -50,7 +53,12 @@ import { QuanLyHoatDongAdminComponent } from './quan-ly-hoat-dong-admin/quan-ly-
     NhaToChucAdminComponent,
     SuKienAdminComponent,
     KhachDatAdminComponent,
-    QuanLyHoatDongAdminComponent
+    QuanLyHoatDongAdminComponent,
+    CategoryAdminComponent,
+    ProductAdminComponent,
+    ProductComponent,
+    CategoryComponent,
+    ThongKeComponent
   ],
   imports: [
     BrowserModule,
